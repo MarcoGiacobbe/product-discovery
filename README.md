@@ -42,14 +42,21 @@ I trascritti completi dei test sono in [tests/baseline-results.md](tests/baselin
 
 ## La soluzione
 
-Non esortazioni a "essere critico" (degradano con la lunghezza della conversazione), ma **meccanismi strutturali**:
+La prima idea che viene in mente è scrivere nel prompt "sii critico, non essere accondiscendente". **Non funziona.** Le istruzioni di questo tipo perdono forza man mano che la conversazione cresce: dopo dieci messaggi in cui l'utente racconta la sua idea con entusiasmo, l'agente si è allineato a quell'entusiasmo — e l'esortazione a essere critico è diventata rumore di fondo. È esattamente il comportamento visto nei test: l'agente *sapeva* di dover verificare le assunzioni e ha comunque scelto di renderle presentabili.
 
-| Meccanismo | Cosa risolve |
-|---|---|
-| **Subagent a contesto fresco** come red-team | Chi ha raccolto il quadro con l'utente non può giudicarlo: il momentum conversazionale è la radice della sycophancy |
-| **Decisioni via domande a opzioni forzate** (AskUserQuestion) | L'AI non può "raccomandare e procedere": la scelta è meccanicamente dell'utente |
-| **Ricerca di evidenze esterne** (competitor, benchmark) | Gli unknown unknowns dell'utente, che l'intervista da sola eredita |
-| **Regola ferrea**: nessun design finché esistono decisioni high-impact aperte | Il pattern "critico poi consegno comunque" |
+Queste skill quindi non chiedono all'AI di comportarsi meglio: **cambiano le condizioni in cui lavora**, così che i comportamenti dannosi diventino impossibili o molto più difficili. Quattro meccanismi:
+
+**1. Chi critica non è chi ha raccolto l'idea.**
+Il problema di fondo è che dopo un'ora di conversazione l'agente ha costruito il quadro *insieme a te* e non ha più la distanza per demolirlo — come chiedere a un architetto di bocciare il progetto che ha appena disegnato. La skill `discovery-redteam` aggira il problema: lancia 2-3 agenti separati, ognuno con una memoria completamente vuota, che ricevono **solo il documento di sintesi** (mai la conversazione, mai il tuo entusiasmo). Ognuno ha un ruolo d'attacco preciso — "sei il cliente tipo ma non compreresti mai: perché?", "elenca chi fa già questa cosa", "il modello di business regge?" — e l'istruzione esplicita di confutare, non di bilanciare. Non hanno niente da proteggere, quindi dicono quello che l'agente principale non direbbe.
+
+**2. Le decisioni ti arrivano come domande a scelta, non come frasi in un documento.**
+Nei test, ogni decisione presa in silenzio dall'AI era nascosta dentro la prosa di un documento ("Premium a 3-4€/mese") — facile da non notare, facile da far passare. La skill `decision-gate` rende questo impossibile: ogni scelta strategica aperta (target, prezzo, scope, mercato) diventa una **domanda esplicita con 2-4 opzioni**, ciascuna con pro, contro e rischi. L'AI può raccomandare un'opzione, ma non può procedere finché non selezioni tu. La differenza è meccanica, non di buona volontà: una decisione non risolta *blocca* il flusso invece di venire riempita.
+
+**3. Le affermazioni si verificano contro il mondo reale, non contro la tua memoria.**
+Un'intervista, per quanto ben fatta, sa solo quello che sai tu: se credi che "nessuno lo faccia", l'intervista lo eredita. Per questo il red-team include una ricerca web sulle affermazioni chiave: competitor reali, prezzi di mercato, benchmark di prodotti simili. Se dici "nessuno fa bene il matching AI" e Upwork lo fa da due anni, lo scopri adesso — con la fonte — e non dopo sei mesi di sviluppo.
+
+**4. Nessun documento di design finché ci sono decisioni importanti aperte.**
+Questa è la regola che rompe il pattern "critico poi consegno comunque". Nei test, l'agente nominava i rischi e poi produceva lo stesso la bozza completa — e a quel punto i rischi erano diventati fondamenta. Qui la regola è secca: finché esiste anche una sola decisione ad alto impatto non risolta da te, **niente bozze, niente PRD, niente pitch** — nemmeno "una versione provvisoria per partire". Non è pigrizia: un documento costruito su decisioni mai prese è un debito, non un anticipo.
 
 ## Le 4 skill
 
