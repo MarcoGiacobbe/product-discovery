@@ -16,7 +16,7 @@ Per ogni `pending_decision` con `resolved: false`, in ordine di `impact`:
 1. Definisci la decisione in una frase e perché incide sull'esito del prodotto.
 2. Costruisci 2-4 opzioni v1 realistiche. Per ognuna: significato, upside, downside, rischio, assunzione da cui dipende.
 3. Se esiste `evidence` rilevante, citala nelle opzioni (le opzioni si ancorano ai dati, non alle preferenze).
-4. **Presenta la scelta con AskUserQuestion** — un'opzione può essere marcata "(Recommended)", ma la selezione è dell'utente. Mai procedere con la raccomandazione non selezionata.
+4. **Presenta la scelta come domanda a opzioni esplicite e fermati.** Se il runtime ha uno strumento di domande strutturate (es. AskUserQuestion in Claude Code), usalo; altrimenti presenta le opzioni come lista numerata e **termina il messaggio lì, aspettando la risposta** — mai proseguire nello stesso messaggio dopo le opzioni. Un'opzione può essere marcata "(Recommended)", ma la selezione è dell'utente. Mai procedere con la raccomandazione non selezionata.
 5. Scrivi nello stato: `chosen`, `decided_by: user`, `resolved: true`. Appendi la voce a `docs/decisions/decision-log.md` (proiezione append-only dello stato: decisione, opzioni considerate, scelta, data, assunzione dipendente).
 
 Se l'utente risponde "decidi tu": registra `decided_by: user-delegated` con la motivazione — la delega esplicita è una decisione dell'utente; il silenzio no.

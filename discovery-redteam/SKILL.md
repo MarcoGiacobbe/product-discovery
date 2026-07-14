@@ -11,7 +11,9 @@ Pressure-test del quadro emerso dalla discovery. **Chi ha raccolto non può giud
 
 ## Passi
 
-**1. Dispatch di 2-3 subagent critici in parallelo.** Ognuno riceve SOLO il contenuto di `specs/discovery-state.yaml` (niente storia della chat, niente entusiasmo da proteggere) e una lente:
+**1. Dispatch di 2-3 subagent critici in parallelo.** Ognuno riceve SOLO il contenuto di `specs/discovery-state.yaml` (niente storia della chat, niente entusiasmo da proteggere) e una lente.
+Se il runtime non ha subagent nativi (Agent/Task tool), ottieni lo stesso contesto fresco lanciando invocazioni one-shot della CLI via shell — es. `codex exec "<prompt>"`, `opencode run "<prompt>"` — passando nel prompt solo il contenuto dello stato e la lente. Se nemmeno questo è possibile, chiedi all'utente di girare i tre prompt in sessioni nuove e incollare i risultati: la freschezza del contesto è il punto, non rinunciarci.
+Le tre lenti:
 
 - **Utente scettico**: "Sei il target descritto ma non compreresti mai. Perché? Cosa risolve già il tuo problema oggi a costo zero?"
 - **Mercato/competitor**: "Elenca chi fa già questo o lo rende irrilevante. La claim di unicità regge?"

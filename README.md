@@ -1,6 +1,6 @@
 # Product Discovery — fase 0 per Superpowers
 
-Suite di 4 skill per Claude Code che aggiunge una fase di **product discovery adversariale** prima di `superpowers:brainstorming`.
+Suite di 4 skill per agenti di coding (Claude Code, Codex, OpenCode, Hermes) che aggiunge una fase di **product discovery adversariale** prima del brainstorming/design — con handoff nativo a `superpowers:brainstorming` su Claude Code.
 
 ## Il problema
 
@@ -96,11 +96,44 @@ superpowers (brainstorming → writing-plans → TDD…)
 
 ## Installazione
 
-1. Copia le 4 cartelle skill in `~/.claude/skills/`:
-   ```bash
-   cp -r product-discovery discovery-redteam decision-gate pre-brainstorm-brief ~/.claude/skills/
-   ```
-2. Nel progetto dove le vuoi usare, integra il contenuto di [CLAUDE.md](CLAUDE.md) nel CLAUDE.md di progetto e copia `specs/discovery-state.template.yaml`. La riga chiave è il trigger: *prima di brainstorming, se non esiste un discovery brief approvato, parte la discovery*.
+Le skill sono cartelle con un file `SKILL.md` (frontmatter `name` + `description`, formato [agentskills.io](https://agentskills.io)) e sono **runtime-neutral**: ogni passaggio che dipende da uno strumento specifico (domande strutturate, subagent) ha un fallback dichiarato dentro la skill. In ogni caso servono due cose:
+
+1. le 4 cartelle skill raggiungibili dall'agente;
+2. nel progetto: il file di istruzioni con il trigger (*prima di brainstorming, se non esiste un discovery brief approvato, parte la discovery*) e `specs/discovery-state.template.yaml`.
+
+### Claude Code
+
+```bash
+git clone https://github.com/MarcoGiacobbe/product-discovery.git
+cd product-discovery
+cp -r product-discovery discovery-redteam decision-gate pre-brainstorm-brief ~/.claude/skills/
+```
+
+Nel progetto dove le userai: integra il contenuto di [CLAUDE.md](CLAUDE.md) nel `CLAUDE.md` di progetto e copia `specs/discovery-state.template.yaml`. Con il plugin [Superpowers](https://github.com/obra/superpowers) installato, il brief finale fa handoff automatico a `superpowers:brainstorming`.
+
+### Codex (OpenAI)
+
+Codex carica le skill nativamente e riconosce la cartella condivisa `~/.agents/skills/`:
+
+```bash
+cp -r product-discovery discovery-redteam decision-gate pre-brainstorm-brief ~/.agents/skills/
+```
+
+Nel progetto: copia [AGENTS.md](AGENTS.md) (o integralo nel tuo `AGENTS.md` esistente) e `specs/discovery-state.template.yaml`. Il red-team, non avendo subagent nativi, usa il fallback previsto dalla skill: invocazioni one-shot `codex exec` con il solo contenuto dello stato.
+
+### OpenCode, Hermes e altri agenti che leggono AGENTS.md
+
+Per i runtime senza auto-discovery delle skill vale l'approccio universale: le skill sono semplici file markdown, e `AGENTS.md` dice all'agente **quando leggerli e seguirli**.
+
+```bash
+# copia le skill dove l'agente può leggerle (nel repo del progetto o in ~/.agents/skills/)
+cp -r product-discovery discovery-redteam decision-gate pre-brainstorm-brief <progetto>/skills/
+cp AGENTS.md specs/discovery-state.template.yaml <progetto>/
+```
+
+[AGENTS.md](AGENTS.md) contiene già le istruzioni di caricamento ("se il runtime non carica le skill automaticamente, leggi il SKILL.md corrispondente quando il trigger scatta"), i trigger di ogni skill, la regola ferrea e l'handoff contract. Se metti le skill in un percorso diverso, aggiorna il percorso indicato in cima ad `AGENTS.md`.
+
+> **Nota di onestà:** il ciclo di test TDD (baseline + verifica) è stato eseguito su Claude Code. Su altri runtime le skill sono compatibili per formato e contengono i fallback, ma il comportamento sotto pressione non è ancora stato verificato lì — se le usi su Codex/OpenCode/Hermes e l'agente "scivola", apri una issue con la frase esatta con cui si è giustificato: è materiale per la tabella delle razionalizzazioni.
 
 ## Testing (TDD per la documentazione)
 
@@ -114,5 +147,6 @@ Evidenze complete in [tests/baseline-results.md](tests/baseline-results.md).
 
 ## Requisiti
 
-- Claude Code con il plugin [Superpowers](https://github.com/obra/superpowers) (per l'handoff a brainstorming)
-- Nessuna dipendenza esterna: il red-team usa subagent nativi e la ricerca web integrata
+- Un agente di coding che legga `CLAUDE.md` o `AGENTS.md` (Claude Code, Codex, OpenCode, Hermes, …)
+- Il plugin [Superpowers](https://github.com/obra/superpowers) è opzionale: con esso il brief fa handoff a `superpowers:brainstorming`, senza si passa al normale flusso di design del runtime
+- Nessuna dipendenza esterna: il red-team usa i subagent nativi (o i fallback via CLI) e la ricerca web integrata

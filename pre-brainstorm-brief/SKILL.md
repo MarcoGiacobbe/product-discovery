@@ -1,6 +1,6 @@
 ---
 name: pre-brainstorm-brief
-description: Use when discovery is complete — high-impact decisions resolved by the user — and the team is ready to hand off to superpowers:brainstorming for design work.
+description: Use when discovery is complete — high-impact decisions resolved by the user — and the team is ready to hand off to the design/brainstorming phase (superpowers:brainstorming when available).
 ---
 
 # Pre-Brainstorm Brief
@@ -34,4 +34,4 @@ Tutte le `pending_decisions` con `impact: high` sono `resolved: true` con `decid
 ## Chiusura e handoff
 
 1. Chiedi all'utente l'approvazione esplicita del brief. Se approvato: `meta.phase: approved`.
-2. Invoca `superpowers:brainstorming` passando il brief come contesto, con il contratto (da CLAUDE.md): `confirmed` e decisioni = vincoli non rinegoziabili; assunzioni aperte = rischi da dichiarare nel design; decisioni residue = domande da porre all'utente, mai da risolvere in autonomia.
+2. Handoff alla fase di design con il contratto (da CLAUDE.md/AGENTS.md): `confirmed` e decisioni = vincoli non rinegoziabili; assunzioni aperte = rischi da dichiarare nel design; decisioni residue = domande da porre all'utente, mai da risolvere in autonomia. Se Superpowers è installato, invoca `superpowers:brainstorming` passando il brief come contesto; altrimenti avvia il normale flusso di design/planning del runtime usando il brief come unico input.
