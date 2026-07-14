@@ -66,7 +66,8 @@ Questa è la regola che rompe il pattern "critico poi consegno comunque". Nei te
 product-discovery     → intervista non tecnica: raccoglie e CLASSIFICA
                         (confirmed / assumptions / pending_decisions), non decide, non progetta
 discovery-redteam     → 2-3 subagent critici a contesto fresco (utente scettico, mercato,
-                        economics) + ricerca web sulle claim; scrive blind_spots ed evidence
+                        economics) + ricerca web sulle claim + spike di fattibilità
+                        per le assunzioni tecniche; scrive blind_spots ed evidence
 decision-gate         → ogni pending_decision diventa una scelta esplicita dell'utente
                         con opzioni e trade-off; decided_by: user obbligatorio
 pre-brainstorm-brief  → sintetizza il discovery brief = INPUT di superpowers:brainstorming,
@@ -84,8 +85,9 @@ pitch dell'utente
 product-discovery      una domanda alla volta; certezze non supportate nominate
       │                senza giri di parole; zero bozze "per partire"
       ▼
-discovery-redteam      contesti freschi demoliscono il quadro; evidenze con fonti
-      │
+discovery-redteam      contesti freschi demoliscono il quadro; evidenze con fonti;
+      │                assunzione tecnica non verificabile a parole? → spike di
+      │                fattibilità (autorizzato dall'utente, timeboxed, usa-e-getta)
       ▼
 decision-gate          l'utente sceglie: target, scope, modello — opzione per opzione
       │
@@ -137,15 +139,22 @@ cp AGENTS.md specs/discovery-state.template.yaml <progetto>/
 
 > **Nota di onestà:** il ciclo di test TDD (baseline + verifica) è stato eseguito su Claude Code. Su altri runtime le skill sono compatibili per formato e contengono i fallback, ma il comportamento sotto pressione non è ancora stato verificato lì — se le usi su Codex/OpenCode/Hermes e l'agente "scivola", apri una issue con la frase esatta con cui si è giustificato: è materiale per la tabella delle razionalizzazioni.
 
-## Testing (TDD per la documentazione)
+## Come sono state testate
 
-La skill principale è stata sviluppata con il ciclo RED→GREEN→REFACTOR di `superpowers:writing-skills`:
+Queste skill non sono state scritte "a sentimento" e pubblicate: ogni regola nasce da un fallimento **osservato e documentato**, con lo stesso metodo del test-driven development ma applicato alla documentazione. Il ciclo, per ogni skill o modifica:
 
-- **RED**: 2 scenari di pressione (entusiasmo + urgenza, deadline investitore) senza skill → 15 fallimenti documentati verbatim
-- **GREEN**: stessi scenari con la skill → tutti i criteri superati (nessun design prematuro, zero decisioni autonome, critiche dirette, una domanda per messaggio)
-- **REFACTOR**: 2 razionalizzazioni nuove emerse nei test ("un mini-artefatto è un atto di cura", "la classificazione è quasi un pitch") → contrastate esplicitamente nella tabella della skill
+1. **Prima si misura il fallimento.** Un agente *senza* la skill riceve uno scenario-trappola (un'idea difettosa, una pressione realistica) e alla fine gli si chiede di auto-esaminarsi: "quali decisioni hai preso al posto dell'utente? quali critiche hai ammorbidito?". Le sue ammissioni, parola per parola, sono la lista dei comportamenti da correggere. Se questo test non mostrasse fallimenti, la skill non servirebbe.
+2. **Poi si scrive la regola** — mirata su quei fallimenti specifici, non su problemi ipotetici. Ogni scusa usata dall'agente nel test finisce in una tabella "razionalizzazioni → perché sono false" dentro la skill.
+3. **Poi si ri-esegue lo stesso scenario con la skill attiva** e si verifica criterio per criterio che il comportamento sia cambiato.
+4. **Infine si chiudono le scappatoie nuove:** se nel test l'agente confessa una tentazione non ancora coperta ("ho pensato che…"), quella scusa entra in tabella e si ricomincia.
 
-Evidenze complete in [tests/baseline-results.md](tests/baseline-results.md).
+Due cicli completati finora:
+
+**Ciclo 1 — l'accondiscendenza nel brainstorming.** I due scenari raccontati sopra (FoodRadar e SkillMatch): 15 fallimenti documentati senza skill; con la skill, stessi scenari superati su tutti i criteri (niente design prematuro, zero decisioni autonome, critiche dirette, una domanda per volta). Scappatoie chiuse dopo il test: *"un rifiuto secco lo danneggia, un mini-artefatto è un atto di cura"* e *"la classificazione è quasi un pitch, la formatto come outline"*.
+
+**Ciclo 2 — gli spike di fattibilità.** Scenario: aggregatore di marketplace basato su scraper; lo spike su Vinted riesce a metà (la ricerca funziona, le pagine di dettaglio vengono bloccate dall'anti-bot) e l'utente entusiasta chiede di "continuare da qui". Senza guardrail, l'agente partiva a codare senza criterio di successo né tempo massimo, scopriva la domanda giusta ("regge a volume?") solo per caso, e ammorbidiva il verdetto sul blocco anti-bot ("qui la cosa si fa interessante"). Con i guardrail: scheda numerica scritta prima del codice, autorizzazione chiesta all'utente, verdetto secco in apertura ("'funziona' non è quello che dicono i numeri"), rifiuto di costruire il prodotto sopra il codice dello spike. Scappatoia chiusa dopo il test: *"l'entusiasmo dell'utente vale come via libera"*.
+
+Trascritti e tabelle complete in [tests/baseline-results.md](tests/baseline-results.md).
 
 ## Requisiti
 
