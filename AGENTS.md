@@ -14,7 +14,9 @@ applica prima la skill `product-discovery`.
 ## Le skill e i loro trigger
 - `product-discovery` — l'utente propone un'idea di prodotto o chiede brainstorming/PRD/design
   senza un discovery brief approvato. Raccoglie e classifica; non decide, non progetta.
-- `discovery-redteam` — dopo le interviste, quando lo stato contiene assunzioni da demolire.
+- `discovery-redteam` — dopo le interviste, quando lo stato contiene assunzioni da demolire;
+  include gli spike di fattibilità per le assunzioni tecniche non verificabili a parole
+  (autorizzati dall'utente, timeboxed, codice usa-e-getta mai promosso a prodotto).
 - `decision-gate` — quando lo stato contiene `pending_decisions` con `resolved: false`.
 - `pre-brainstorm-brief` — quando le decisioni high-impact sono risolte dall'utente.
 
