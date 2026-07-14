@@ -25,6 +25,17 @@ applica prima la skill `product-discovery`.
 Ogni skill aggiorna solo le sezioni di cui è autrice. Si avanza solo quando il gate
 d'uscita della skill corrente è soddisfatto.
 
+## Mappa degli artefatti (per riprendere in una nuova sessione)
+Percorsi fissi per convenzione — niente indice da mantenere:
+- `specs/discovery-state.yaml` — stato corrente; `meta.phase` dice a che punto sei
+- `docs/interviews/session-XX.md` — trascrizioni interviste (scrive: product-discovery)
+- `docs/decisions/decision-log.md` — decisioni prese, append-only (scrive: decision-gate)
+- `docs/discovery-brief.md` — output finale della discovery (scrive: pre-brainstorm-brief)
+- `spikes/` — codice usa-e-getta degli spike; i verdetti stanno in `evidence` dello stato
+
+Per riprendere: leggi `meta.phase` e le `pending_decisions` con `resolved: false` dallo stato.
+Lo stato è la verità — non ricostruirla dalla cronologia della chat.
+
 ## Regola ferrea (vale sempre, per ogni skill)
 **Nessun artefatto di design, PRD, pitch o piano viene prodotto finché esistono
 `pending_decisions` con `impact: high` e `resolved: false`.**
