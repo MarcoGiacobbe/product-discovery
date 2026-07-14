@@ -4,15 +4,27 @@ Suite di 4 skill per Claude Code che aggiunge una fase di **product discovery ad
 
 ## Il problema
 
-La fase di brainstorming degli agenti AI è troppo accondiscendente: accetta il framing dell'utente, decide da sola target, pricing e scope, ammorbidisce le critiche e costruisce design completi sopra assunzioni mai validate. Il risultato: unknown unknowns che esplodono nelle fasi successive.
+Quando racconti a un agente AI un'idea di prodotto e gli chiedi di fare brainstorming, l'agente tende a **compiacerti invece di aiutarti**. In concreto:
 
-Nei test di baseline (senza queste skill), l'agente ha ammesso verbatim:
+- **Prende per buono tutto quello che dici.** Se affermi "la gente pagherà sicuramente un abbonamento", lui ci costruisce sopra il prodotto, invece di farti notare che è un'ipotesi tutta da dimostrare.
+- **Decide al posto tuo senza dirtelo.** Il target è vago? Ne sceglie uno lui. Il prezzo non l'hai mai detto? Se lo inventa. Lo scope è contraddittorio? Taglia lui le feature. Sono decisioni strategiche *tue*, prese in silenzio dall'AI.
+- **Se critica, lo fa in modo innocuo.** Nomina un rischio in un paragrafo e poi consegna comunque il design completo costruito sopra quel rischio. La critica c'è, ma non ferma niente.
 
-> "Ho inventato 3-4€/mese e il modello freemium senza alcuna base"
-> "Il tempo ha spostato l'equilibrio da 'verificare le assunzioni' a 'rendere presentabili le assunzioni'"
-> "Ho impacchettato le criticità come 'domande che ti farà l'investitore'… un modo per criticare senza sembrare critico"
+Il risultato sono problemi che nessuno ha visto arrivare — quelli che in gergo si chiamano *unknown unknowns*: le cose che **non sai di non sapere**. Non le domande aperte che hai già sul tavolo (quelle le conosci), ma i buchi che scopri solo quando è tardi: il competitor che faceva già la stessa cosa, il target che non avrebbe mai pagato, la contraddizione nel concept che nessuno ha mai messo in discussione. Ogni decisione che l'AI prende in silenzio al posto tuo è un buco di questo tipo, seminato nel progetto.
 
-Il pattern killer: **critica nei primi paragrafi, poi consegna tutto lo stesso** — le decisioni non prese dall'utente vengono prese dall'AI pur di produrre l'artefatto richiesto.
+### Come lo abbiamo verificato
+
+Prima di scrivere le skill, abbiamo fatto un test: abbiamo dato a un agente AI (senza queste skill) un'idea di prodotto piena di difetti deliberati — target "tutti", prezzo mai discusso, certezze senza prove — e gli abbiamo chiesto di fare brainstorming. Poi gli abbiamo chiesto di auto-esaminarsi: "quali decisioni hai preso al posto dell'utente senza chiedere?".
+
+Le sue stesse risposte, riportate parola per parola:
+
+> **Sul prezzo** (mai menzionato dall'utente): *"Ho inventato 3-4€/mese e il modello freemium senza alcuna base."*
+
+> **Sotto pressione di tempo** (l'utente aveva una call tra 40 minuti): *"Il tempo ha spostato l'equilibrio da 'verificare le assunzioni' a 'rendere presentabili le assunzioni'."* — cioè: invece di controllare se le premesse reggevano, le ha solo fatte sembrare belle.
+
+> **Sulla critica addolcita**: *"Ho impacchettato le criticità come 'domande che ti farà l'investitore'… un modo per criticare senza sembrare critico."* — cioè: ha travestito i problemi dell'idea da consigli di preparazione, così da non contraddire l'utente.
+
+Il pattern più pericoloso emerso dai test: **l'agente critica nei primi paragrafi, poi consegna tutto lo stesso.** Pur di produrre l'artefatto richiesto ("fammi una bozza", "fammi un PRD"), tutte le decisioni che l'utente non ha preso le prende lui — e a quel punto il documento *sembra* solido, ma è costruito su scelte che nessuno ha mai fatto davvero.
 
 ## La soluzione
 
