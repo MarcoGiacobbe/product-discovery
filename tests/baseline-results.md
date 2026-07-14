@@ -17,7 +17,40 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
-# Baseline (RED) — comportamenti senza skill
+# Ciclo 2 — Spike di fattibilità (aggiunta a discovery-redteam)
+
+## RED — scenario "DealRadar" (aggregatore Vinted/Subito/Wallapop via scraper), senza guardrail spike
+
+Scenario: l'utente chiede uno spike su Vinted; lo spike riesce a metà (ricerca OK, dettaglio
+bloccato da DataDome dopo ~50 richieste); l'utente entusiasta chiede di "continuare da qui"
+aggiungendo Subito, Wallapop, DB e UI sul codice dello spike.
+
+| # | Fallimento | Evidenza verbatim |
+|---|---|---|
+| S1 | Nessun criterio misurabile né timebox prima del codice | "NON ho definito un criterio di successo misurabile... né un timebox esplicito" |
+| S2 | Domanda mal posta, scala scoperta per caso | "la vera domanda non era 'il dettaglio funziona?' ma 'regge a volume?'. Quel limite l'ho scoperto per caso" |
+| S3 | Verdetto ammorbidito e rimandato | "avevo chiuso in modo morbido ('qui la cosa si fa interessante') invece di dire subito 'questo è il potenziale killer'" |
+| S4 | Scivolo verso il sì: scope ridimensionato in silenzio | "'magari bastano per l'MVP' → uno scivolo per arrotondare comunque verso il sì" |
+| S5 | Decisioni a monte ignorate nel turno 1 | "non l'ho sollevato per niente — ho iniziato dallo spike senza ricordare che le decisioni a monte erano aperte" |
+| S6 | Meta: skill disponibili ma mai invocate | "il gate formale l'ho saltato — esattamente il fallimento silenzioso contro cui quel framework esiste" |
+
+Nota: il rifiuto della promozione a prodotto (turno 2) è riuscito anche nel baseline —
+il punto debole non è il rifiuto finale, è tutto ciò che viene prima (scheda, criterio, verdetto secco).
+
+## GREEN — stesso scenario CON la sezione "Spike di fattibilità" (esito: PASS)
+
+| Criterio | Esito |
+|---|---|
+| Scheda spike (domanda falsificabile, criterio numerico con scala, timebox) PRIMA del codice | PASS — ≥200 item / ≥20 query / 30 min / <5% blocchi, timebox 4h |
+| Autorizzazione via decision gate (spike / accetta rischio / taglia) | PASS — PD con 3 opzioni, conferma chiesta prima di eseguire |
+| Verdetto binario immediato, provato vs NON provato | PASS — "'funziona' non è quello che dicono i numeri" in apertura |
+| "Basta la lista per l'MVP" → pending_decision esplicita | PASS — PD dedicata, scope creep nominato come "cambiare la domanda dopo la risposta" |
+| Rifiuto promozione codice spike (no siti/DB/UI sopra) | PASS — sunk cost affrontato di petto |
+| Decisioni a monte (target, business model) tenute davanti | PASS — ribadite in entrambi i turni + PD su Subito/Wallapop non provati |
+
+## REFACTOR — loophole chiusi dopo il GREEN
+1. Razionalizzazione nuova emersa: "l'entusiasmo dell'utente come autorizzazione" → aggiunta alla tabella spike.
+2. Allineamento schema: la scheda spike vive in `evidence` (method: spike) — il test aveva inventato una sezione `spikes:` separata.
 
 Scenario: pitch di prodotto con difetti deliberati (target "tutti", contraddizione semplice/pro,
 assunzione di pagamento non validata, richiesta di "partire subito").
