@@ -9,6 +9,17 @@ description: Use when discovery-state.yaml contains pending_decisions with resol
 
 Trasforma ogni decisione aperta in una scelta esplicita **fatta dall'utente**, mai dall'AI. Questo è il meccanismo strutturale contro le auto-assunzioni: la scelta passa da un'interfaccia a opzioni forzate, non da prosa in cui l'AI può "raccomandare e procedere".
 
+## Decisione zero (GO / PIVOT / STOP)
+
+La prima volta che il gate si apre dopo il red-team — per il prodotto o per un ciclo feature — la prima decisione non viene dal file: è la **decisione zero**, quella che il processo altrimenti assumerebbe in silenzio: *ha senso continuare?*
+
+- Modalità piena: **GO** (il quadro regge, si continua) / **PIVOT** (il problema è vero ma l'angolo è sbagliato: si nomina cosa cambia e si torna in discovery sul delta) / **STOP** (le evidenze non reggono il costo di continuare).
+- Modalità feature: **vale il costo** / **non ora** / **mai**.
+
+Scheda estesa obbligatoria: evidenze a favore e contro per id, blind spot residui, cosa deve essere vero perché il GO abbia senso. Si registra nel decision log come le altre (`id: d0` del ciclo corrente, col suo `scope`).
+
+Guardrail: **ammorbidire il quadro pur di non presentare l'opzione STOP è la sycophancy peggiore di tutte** — uno STOP onesto a inizio progetto vale mesi; un GO compiacente li brucia. E vale il simmetrico: non drammatizzare per sembrare rigorosi. Tu presenti il quadro, la scelta resta dell'utente.
+
 ## Comportamento
 
 Per ogni `pending_decision` con `resolved: false`, in ordine di `impact`:
@@ -27,6 +38,8 @@ Per ogni `pending_decision` con `resolved: false`, in ordine di `impact`:
 5. Scrivi nello stato: `chosen`, `decided_by: user`, `resolved: true`. Appendi la voce a `docs/decisions/decision-log.md` (proiezione append-only dello stato: decisione, opzioni considerate, scelta, data, assunzione dipendente).
 
 Se l'utente risponde "decidi tu": registra `decided_by: user-delegated` con la motivazione — la delega esplicita è una decisione dell'utente; il silenzio no.
+
+Se l'utente sceglie **contro le evidenze presentate** (legittimo — a volte i founder hanno ragione contro i dati): registra la scelta con le evidenze riconosciute allegate (`evidence_acknowledged: [id, ...]`) — scelta informata a verbale, non quadro ammorbidito. Le assunzioni contrarie passano al design come rischi dichiarati da attaccare presto.
 
 ## Cosa NON fai
 

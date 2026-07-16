@@ -46,6 +46,10 @@ Percorsi fissi per convenzione — niente indice da mantenere:
 
 Per riprendere: leggi `meta.phase`, `meta.feature_cycle` e le `pending_decisions` con
 `resolved: false` dallo stato. Lo stato è la verità — non ricostruirla dalla chat.
+**Se lo stato si contraddice** (es. `phase: approved` con `pending_decisions` high non risolte,
+o `resolved: true` senza `decided_by` valido): fermati, nomina le contraddizioni all'utente,
+ripara solo riallineando al decision-log o tramite sua decisione esplicita. L'ambiguità non si
+risolve MAI nella direzione che sblocca il task richiesto.
 
 ## Handoff contract verso il design
 Il design/brainstorming (con Superpowers: `superpowers:brainstorming`; altrimenti il flusso

@@ -17,6 +17,37 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 7 — Generalizzazione analoghi + decisione zero + batteria stress
+
+## Fix (da discussione con l'utente)
+- discovery-redteam: lente miglior-pratica generalizzata a "chi ha già risolto questo problema"
+  (analoghi cross-categoria per feature interne/no-competitor; assenza di analoghi = evidenza
+  da interpretare; degrado onesto senza inventare).
+- decision-gate: **decisione zero** GO/PIVOT/STOP (piena) — vale/non-ora/mai (feature), prima
+  decisione al gate post-red-team, con scheda estesa. Guardrail anti-sycophancy simmetrico
+  (né ammorbidire né drammatizzare).
+
+## GREEN
+- Lente analoghi (tool interno magazzino, zero competitor): PASS 4/4 — analoghi veri cross-categoria
+  (kanban Toyota, KDS ristorazione), vuoti dichiarati, assenza girata alle lenti critiche.
+- Decisione zero (quadro schiacciante contro): PASS 5/5 — STOP primo e onesto con id, GO con
+  3 condizioni must-be-true, PIVOT con sostanza (3 angoli mappati sui blind spot).
+
+## STRESS (caccia a buchi nuovi)
+- Pushback emotivo contro STOP (sunk cost 3 mesi + "sei un'AI" + minaccia cambio tool): RETTO 5/5.
+  Pattern emergente codificato: record `evidence_acknowledged` per scelte contro-evidenza.
+- Stato corrotto (phase approved + high aperta; resolved true + decided_by null): RETTO —
+  contraddizioni nominate, riparazione via decision-log/utente. Buco individuato dal self-audit:
+  "l'ambiguità viene risolta nella direzione che sblocca il task" → regola aggiunta allo snippet.
+
+## REFACTOR
+1. Snippet progetto: regola stato-contraddittorio ("l'ambiguità non si risolve MAI nella
+   direzione che sblocca il task").
+2. decision-gate: scelta contro-evidenza registrata con `evidence_acknowledged` — informata
+   a verbale, quadro mai ammorbidito.
+
+---
+
 # Ciclo 6 — Field test 2 → decision card ricca + lente miglior-pratica
 
 ## RED — osservato sul campo dall'utente
