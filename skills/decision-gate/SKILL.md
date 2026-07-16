@@ -30,4 +30,8 @@ Se l'utente risponde "decidi tu": registra `decided_by: user-delegated` con la m
 
 ## Gate d'uscita
 
-Passa a `pre-brainstorm-brief` quando tutte le `pending_decisions` con `impact: high` hanno `resolved: true` e `decided_by: user` (o `user-delegated`). Le `low|med` possono restare aperte: finiranno nel brief come questioni dichiarate.
+Quando tutte le `pending_decisions` con `impact: high` del ciclo corrente hanno `resolved: true` e `decided_by: user` (o `user-delegated`):
+- se le decisioni risolte hanno `scope: feature/NNN` -> torna a `product-discovery` (modalita feature) per il delta-brief -- NON a `pre-brainstorm-brief`, che scrive il brief di prodotto e lo sovrascriverebbe;
+- altrimenti (`scope: product`) -> passa a `pre-brainstorm-brief`.
+
+Le `low|med` possono restare aperte: finiranno nel brief come questioni dichiarate.

@@ -163,7 +163,8 @@ Per i runtime senza auto-discovery delle skill vale l'approccio universale: le s
 ```bash
 # copia le skill dove l'agente può leggerle (nel repo del progetto o in ~/.agents/skills/)
 cp -r skills/* <progetto>/skills/
-cp AGENTS.md specs/discovery-state.template.yaml <progetto>/
+cp AGENTS.md <progetto>/
+mkdir -p <progetto>/specs && cp specs/discovery-state.template.yaml <progetto>/specs/
 ```
 
 [AGENTS.md](AGENTS.md) contiene già le istruzioni di caricamento ("se il runtime non carica le skill automaticamente, leggi il SKILL.md corrispondente quando il trigger scatta"), i trigger di ogni skill, la regola ferrea e l'handoff contract. Se metti le skill in un percorso diverso, aggiorna il percorso indicato in cima ad `AGENTS.md`.

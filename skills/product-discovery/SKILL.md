@@ -57,7 +57,9 @@ Richiesta di nuova feature = mini-discovery scopata alla feature, non re-discove
 2. **Confronta ogni claim della feature col decision log.** Conflitto con una decisione presa = lo nomini subito e diretto; riaprire la decisione è una scelta esplicita dell'utente, mai un dettaglio di implementazione.
 3. **Classifica come in modalità piena**, scopato alla feature: `confirmed` / `assumptions` (incluso "è semplice" — è un claim, non un fatto) / `pending_decisions`. Marca ogni voce con `scope: feature/NNN` — mai mescolare i cicli feature con le voci di prodotto. Assunzioni tecniche non verificabili a parole → percorso spike di `discovery-redteam`.
 4. **Le decisioni passano da `decision-gate` invocata davvero**, con opzioni simmetriche. Non emularla a mano, non proporre "il default pigro" nel testo: un default con framing orienta la scelta. Anche i micro-parametri decisi da te (timebox di uno spike, candidato tecnico da testare) vanno dichiarati come proposte nell'opzione, non assunti.
-5. Output dopo il gate: `docs/features/NNN-<slug>-brief.md` (delta-brief: cosa tocca, decisioni prese, assunzioni ereditate) — poi handoff al design.
+5. Output dopo il gate: `docs/features/NNN-<slug>-brief.md` (delta-brief: cosa tocca, decisioni prese, assunzioni ereditate; NNN = progressivo a 3 cifre sui file esistenti in `docs/features/`). Chiedi **approvazione esplicita** del delta-brief; se approvato, aggiorna `meta.feature_cycle` a `done` e fai l'handoff pulito come per il brief di prodotto — sessione nuova nella stessa cartella, prompt pronto:
+
+   > Leggi `docs/features/NNN-<slug>-brief.md` e `docs/decisions/decision-log.md`, poi avvia il design della feature rispettando l'handoff contract nel file di istruzioni di progetto (CLAUDE.md/AGENTS.md): punti confermati e decisioni = vincoli; assunzioni aperte = rischi dichiarati; decisioni residue = domande da pormi.
 
 **Anche in modalità feature: niente design con gate aperti.** "Se decidi X allora il design è Y" è design — condizionale non lo rende lecito.
 
@@ -79,4 +81,4 @@ Richiesta di nuova feature = mini-discovery scopata alla feature, non re-discove
 
 Modalità piena: passa a `discovery-redteam` solo quando: utente primario ragionevolmente stretto, problema concreto con esempi reali, `assumptions` e `pending_decisions` popolate. Se il materiale è debole, di' esattamente cosa manca.
 
-Modalità feature: passa a `discovery-redteam` se restano assunzioni high-impact non validate, altrimenti direttamente a `decision-gate`. Il delta-brief si scrive solo a gate chiusi.
+Modalità feature: passa a `discovery-redteam` se restano `assumptions` non validate con `confidence: low|med` su cui la feature poggia, altrimenti direttamente a `decision-gate`. Il delta-brief si scrive solo a gate chiusi. All'avvio del ciclo setta `meta.feature_cycle: feature/NNN` nello stato (torna `done` alla chiusura).

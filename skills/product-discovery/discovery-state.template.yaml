@@ -1,13 +1,16 @@
 # Template: copiare in specs/discovery-state.yaml al primo avvio della discovery.
+# Copia canonica: specs/ del repo del plugin; la copia in skills/product-discovery/ va tenuta allineata.
 # UNICA source of truth del processo. Ogni skill aggiorna SOLO le sezioni di cui è autrice.
-# Autori: product-discovery -> confirmed, assumptions, pending_decisions (raccolta)
-#         discovery-redteam -> blind_spots, evidence, pending_decisions (aggiunta)
-#         decision-gate     -> pending_decisions (risoluzione)
+# Autori: product-discovery -> confirmed, assumptions, pending_decisions (raccolta);
+#                              meta.phase = discovery; meta.feature_cycle (apertura/chiusura cicli feature)
+#         discovery-redteam -> blind_spots, evidence; meta.phase = redteam
+#         decision-gate     -> pending_decisions (risoluzione); meta.phase = decisions
 #         pre-brainstorm-brief -> meta.phase = brief | approved
 
 meta:
   project: ""
   phase: discovery          # discovery | redteam | decisions | brief | approved
+  feature_cycle: null       # null | feature/NNN (ciclo feature attivo) | done — la phase resta "approved" durante i cicli feature
   updated_by: ""            # skill che ha scritto per ultima
 
 confirmed:                  # SOLO affermazioni esplicitamente confermate dall'utente, citabili alla lettera
@@ -52,5 +55,5 @@ pending_decisions:          # UNICA sede delle decisioni; docs/decisions/decisio
   #   options: []           # popolato da decision-gate
   #   resolved: false
   #   chosen: null
-  #   decided_by: null      # DEVE essere "user" perché conti come risolta
+  #   decided_by: null      # "user" | "user-delegated" perché conti come risolta
   #   scope: product        # product | feature/NNN
