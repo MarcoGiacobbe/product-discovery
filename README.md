@@ -67,9 +67,11 @@ product-discovery     → intervista non tecnica: raccoglie e CLASSIFICA
                         (confirmed / assumptions / pending_decisions), non decide, non progetta.
                         Due modalità: piena (nuovo prodotto) e feature (prodotto esistente:
                         mini-discovery scopata, check sul decision log, delta-brief)
-discovery-redteam     → 2-3 subagent critici a contesto fresco (utente scettico, mercato,
-                        economics) + ricerca web sulle claim + spike di fattibilità
-                        per le assunzioni tecniche; scrive blind_spots ed evidence
+discovery-redteam     → 3-4 subagent a contesto fresco: tre lenti critiche (utente scettico,
+                        mercato, economics) + lente costruttiva "miglior pratica altrui"
+                        (cosa fanno bene i competitor: adottare/adattare/differenziarsi,
+                        deciso al gate) + ricerca web + spike di fattibilità;
+                        scrive blind_spots ed evidence
 decision-gate         → ogni pending_decision diventa una scelta esplicita dell'utente
                         con opzioni e trade-off; decided_by: user obbligatorio
 pre-brainstorm-brief  → sintetizza il discovery brief = INPUT di superpowers:brainstorming,

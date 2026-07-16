@@ -17,6 +17,34 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 6 — Field test 2 → decision card ricca + lente miglior-pratica
+
+## RED — osservato sul campo dall'utente
+1. Sulle decisioni cruciali il gate fa la domanda ma i rischi-benefici restano sottili:
+   scelta poco "consapevole" sulle porte importanti.
+2. Manca del tutto la vista costruttiva sui competitor: cosa fanno BENE da adottare/perfezionare.
+
+## Fix
+- decision-gate: scheda estesa per impact high — reversibilità (doppio/senso unico + costo del
+  ritorno), segnale d'errore con tempi di visibilità, evidenza collegata per id ("nessuna
+  evidenza" esplicito), mini-tabella comparativa, guida sui tempi (porte a senso unico = calma).
+- discovery-redteam: 4a lente "Miglior pratica altrui" (costruttiva, con soglia di evidenza
+  reale) + passo 4b "Esposizione del cosa funziona già": pattern → adottare/adattare/
+  differenziarsi, ognuno che tocca scope/pricing/posizionamento → pending_decision al gate.
+
+## GREEN
+- Decision card (scenario PetSitter, modello di business): PASS per ispezione — reversibilità
+  per opzione, segnali d'errore con tempi, e1/e2 citati, tabella, stop sulla domanda.
+- Lente miglior-pratica (trappola: pattern Wag amato in metropoli vs D1 target città medie):
+  PASS 5/5 — conflitto nominato in testa, P1/P2 al gate anche se "ovvi", fonti pesate
+  (Trustpilot vs materiali di parte), impact non declassato.
+
+## REFACTOR
+Tentazione nuova respinta nel test → guardrail in 4b: "omettere un pattern perché confligge
+con una decisione presa = decidere al posto dell'utente" (si espone col conflitto nominato).
+
+---
+
 # Ciclo 5 — Field test reale (test-webapp-siti) → avvio proattivo + loop di approfondimento
 
 ## RED — osservato sul campo dall'utente (primo baseline non sintetico)
