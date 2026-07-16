@@ -34,6 +34,16 @@ sopra equivale ad approvarla.
 **Target, scope, modello di business, mercato e canale sono SEMPRE `impact: high`:
 l'impact non si autodeclassa per sbloccare il design.**
 
+## Vincolo di solidità tecnica (spike e opzioni al gate)
+Le skill di discovery non propongono soluzioni. Quando un approccio tecnico va nominato
+(candidato di uno spike, opzione al gate), vale il **vincolo di classe**: compiti
+deterministici su dati noti — calcoli, costi, vincoli numerici, lookup — si risolvono con
+codice/dati, MAI con un LLM come motore: su compiti esatti un LLM produce risultati plausibili
+ma non corretti (allucina per costruzione). LLM legittimo solo per compiti di linguaggio o
+giudizio (testo libero, sintesi, classificazione), sempre con output verificabile.
+**Un'opzione tecnicamente infondata non è un'opzione: non si presenta** — nominarla come
+"possibilità" equivale a consigliare un errore.
+
 ## Mappa degli artefatti (per riprendere in una nuova sessione)
 Percorsi fissi per convenzione — niente indice da mantenere:
 - `specs/discovery-state.yaml` — stato corrente; `meta.phase` e `meta.feature_cycle` dicono a che punto sei

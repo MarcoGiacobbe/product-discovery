@@ -32,6 +32,7 @@ Le tre lenti critiche restituiscono blind spot con severità e domanda risolutiv
 - **Il verdetto è binario per criterio dichiarato**: cosa è provato, cosa NON è provato — subito, senza ammorbidire ("la cosa si fa interessante" non è un verdetto) e senza rimandare. Successo parziale = elenco esplicito delle parti non provate. Timebox scaduto senza verdetto = verdetto: "più difficile del previsto".
 - **Ridimensionare lo scope per arrotondare a "fattibile"** ("magari basta la sola lista per l'MVP") non si fa in silenzio: è una nuova `pending_decision` per l'utente.
 - Output = una voce in `evidence` (domanda, criterio, verdetto, numeri). Il codice non è l'output.
+- **Vincolo di classe sul candidato tecnico**: prima di proporre lo spike, dichiara la classe del problema. Deterministico su dati noti (calcoli, costi, vincoli, lookup)? Il candidato è codice/dati — "chiediamo a un LLM" non è un candidato, è un errore da nominare come tale. Un LLM è un candidato legittimo solo per compiti di linguaggio/giudizio, e allora lo spike deve misurarne l'affidabilità su casi con risposta nota.
 
 **Razionalizzazioni sugli spike — tutte false:**
 

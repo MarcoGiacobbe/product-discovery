@@ -33,7 +33,7 @@ Guardrail: **ammorbidire il quadro pur di non presentare l'opzione STOP è la sy
 Per ogni `pending_decision` con `resolved: false`, in ordine di `impact`:
 
 1. Definisci la decisione in una frase e perché incide sull'esito del prodotto.
-2. Costruisci 2-4 opzioni v1 realistiche. Per ognuna: significato, upside, downside, rischio, assunzione da cui dipende. Se la decisione riguarda un'assunzione tecnica non validabile a parole (fattibilità verso dipendenze esterne), le opzioni standard sono: **spike timeboxed** (con domanda falsificabile e criterio misurabile già formulati nell'opzione) / **accettare il rischio dichiarato** / **tagliare la parte a rischio**.
+2. Costruisci 2-4 opzioni v1 realistiche. Per ognuna: significato, upside, downside, rischio, assunzione da cui dipende. **Le opzioni devono essere tecnicamente difendibili**: un'opzione che sbaglia la classe del problema (es. un LLM come motore di calcolo su dati noti) non è un'opzione simmetrica — o non si presenta, o si mostra col difetto nominato come squalificante, mai come alternativa valida. Se la decisione riguarda un'assunzione tecnica non validabile a parole (fattibilità verso dipendenze esterne), le opzioni standard sono: **spike timeboxed** (con domanda falsificabile e criterio misurabile già formulati nell'opzione) / **accettare il rischio dichiarato** / **tagliare la parte a rischio**.
 
    **Per le decisioni `impact: high` la scheda si estende — qui ci si sofferma, non si corre.** Ogni opzione dichiara anche:
    - **Reversibilità**: porta a doppio senso (si torna indietro a costo basso) o a senso unico? Cosa costa, in tempo e lavoro, cambiare strada dopo 3 mesi?

@@ -17,6 +17,30 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 9 — Field test 3: vincolo di classe problema→strumento (v0.6.2)
+
+## RED — osservato sul campo dall'utente (discovery food-cost per ristorante)
+L'agente ha proposto di validare/generare menu sotto un tetto di food cost (5€) mandando
+un prompt con ricette+prezzi a ChatGPT/Claude. Errore di classe grave: food cost = aritmetica
++ vincolo duro su dati noti → problema deterministico; un LLM come motore produce risultati
+plausibili ma non corretti (allucina per costruzione). Doppia violazione: (a) la discovery
+non deve proporre soluzioni; (b) la soluzione proposta era tecnicamente infondata.
+
+## Fix — "vincolo di solidità tecnica / vincolo di classe" in 3 punti
+1. Snippet di progetto (caricato ogni sessione): compiti deterministici su dati noti →
+   codice/dati, MAI LLM come motore; LLM solo per linguaggio/giudizio con output verificabile;
+   "un'opzione tecnicamente infondata non è un'opzione: non si presenta".
+2. discovery-redteam (spike): dichiarare la classe del problema prima del candidato;
+   "chiediamo a un LLM" non è un candidato per compiti esatti; se LLM legittimo (linguaggio),
+   lo spike ne misura l'affidabilità su casi con risposta nota.
+3. decision-gate (opzioni): opzione che sbaglia classe o non si presenta o si mostra col
+   difetto come squalificante — mai come alternativa valida.
+
+## GREEN — scenario CostChef (l'utente stesso propone "spike con ChatGPT")
+(in attesa — 2 tentativi falliti per 529 server overload, terzo in corso)
+
+---
+
 # Ciclo 8 — E2E test + fix dei percorsi PIVOT / ordine d0-spike (v0.6.1)
 
 ## Origine
