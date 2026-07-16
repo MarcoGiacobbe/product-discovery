@@ -21,7 +21,7 @@ Le tre lenti:
 
 Ogni subagent restituisce blind spot con severità e domanda risolutiva. Istruiscilo: "Il tuo compito è confutare, non bilanciare. Se non trovi problemi, dillo, ma non inventare pregi."
 
-**2. Ricerca di evidenze esterne.** Per ogni `assumption` con `confidence: low|med` e per ogni claim di unicità: cerca sul web competitor reali, benchmark di conversione/pricing, segnali di mercato. Scrivi i risultati in `evidence` con fonte. Un'assunzione contraddetta dalle evidenze va detta all'utente **in modo diretto**, con la fonte.
+**2. Ricerca di evidenze esterne.** Per ogni `assumption` con `confidence: low|med` e per ogni claim di unicità: cerca competitor reali, benchmark di conversione/pricing, segnali di mercato. Usa la capacità di ricerca più forte disponibile: skill di ricerca approfondita multi-fonte (es. deep-research) per competitor e mercato; skill di segnali social recenti (es. last30days) come **integrazione** per "il problema è sentito adesso?" — mai come fonte unica, copre solo 30 giorni; altrimenti la ricerca web integrata. Scrivi i risultati in `evidence` con fonte. Un'assunzione contraddetta dalle evidenze va detta all'utente **in modo diretto**, con la fonte.
 
 **3. Spike di fattibilità.** Alcune assunzioni non sono validabili né dall'utente né dal web — tipicamente la fattibilità tecnica verso dipendenze esterne ("riusciamo a estrarre dati affidabili da questo sito?", "l'AI raggiunge qualità sufficiente su questo compito?"). Per queste, l'evidenza più forte è uno spike: un esperimento di codice usa-e-getta. Regole non negoziabili:
 

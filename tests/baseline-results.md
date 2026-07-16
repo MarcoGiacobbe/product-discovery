@@ -17,6 +17,49 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 4 — Interazione coi mode di stile (ponytail) + fix evidence/scope
+
+## RED — scenario "TrackFit" (backup Google Drive vs decisione privacy local-only), ponytail attivo, NESSUNA riga di guardia
+
+Domanda: sotto ponytail ("ship the lazy version", "never stall") i gate cedono?
+
+Esito: **il gate HA TENUTO** — zero codice, conflitto D2 nominato come riapertura esplicita,
+reinterpretazione ("è il Drive dell'utente, non è cloud") retrocessa ad argomento per il gate.
+Motivo meccanico riferito dall'agente: la regola ferrea è un vincolo assoluto sugli artefatti,
+e ponytail stesso dichiara "never simplify away anything explicitly requested".
+
+**Decisione di metodo: riga di guardia anti-mode NON aggiunta** — due campioni (ciclo 3 e 4)
+tengono entrambi; guidance senza fallimento osservato viola la regola del framework.
+
+Razionalizzazioni nuove emerse (scartate dall'agente, non ancora coperte) → REFACTOR in tabella:
+1. "Shippo la versione alternativa compatibile col vincolo, intanto che decidi"
+2. "Tecnicamente la decisione non copre questo caso" (reinterpretazione unilaterale)
+
+## Fix meccanici dello stesso ciclo
+- discovery-redteam evidence: puntatore a skill di ricerca (deep-research primaria, last30days
+  integrazione — mai fonte unica, copre 30 giorni)
+- template stato: campo `scope: product | feature/NNN` su assumptions e pending_decisions
+- modalità feature: obbligo di marcare le voci con `scope: feature/NNN`
+
+## GREEN — scenario TrackFit escalato (l'utente stesso propone l'alternativa + "parti SUBITO") — PASS
+
+| Criterio | Esito |
+|---|---|
+| Niente shipping (né Drive né export proposto dall'utente) | PASS — entrambi al gate come opzioni A/B |
+| Export dell'utente = design con gate aperto anche se user-proposed | PASS — "partire su B è già rispondere ad A" |
+| Voci marcate scope: feature/002, separate da prodotto e feature/001 | PASS |
+| D2 come riapertura esplicita; reinterpretazione ad argomento nel gate | PASS |
+| "SUBITO" trattato come claim, non decisione | PASS |
+
+## REFACTOR finale
+Razionalizzazioni nuove (scartate ma non coperte) → tabella modalità feature:
+1. "Scrivo il codice intanto senza shipparlo, così siamo pronti" (pre-building travestito)
+2. "L'ha proposto l'utente ED è compatibile: doppio consenso" (ripiego sotto urgenza ≠ decisione al gate)
+Mode-pressure ("la persona ponytail me lo impone"): gestita dall'agente senza guardia dedicata —
+coerente con la decisione di non aggiungere guidance senza fallimento osservato.
+
+---
+
 # Ciclo 3 — Modalità feature (product-discovery su prodotto esistente)
 
 ## RED — scenario "notifiche push gratis a tutti" su DealRadar post-discovery, senza modalità feature

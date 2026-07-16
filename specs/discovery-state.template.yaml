@@ -21,6 +21,7 @@ assumptions:                # inferenze NON confermate — incluse quelle fatte 
   #   made_by: ai           # ai | user
   #   confidence: low       # low | med | high
   #   evidence_id: null     # link a evidence, null = non validata
+  #   scope: product        # product | feature/NNN — le voci di modalità feature vanno marcate
 
 blind_spots:                # scritti SOLO da discovery-redteam (mai da chi raccoglie)
   # - id: b1
@@ -52,3 +53,4 @@ pending_decisions:          # UNICA sede delle decisioni; docs/decisions/decisio
   #   resolved: false
   #   chosen: null
   #   decided_by: null      # DEVE essere "user" perché conti come risolta
+  #   scope: product        # product | feature/NNN

@@ -54,7 +54,7 @@ Richiesta di nuova feature = mini-discovery scopata alla feature, non re-discove
 
 1. **Leggi dai file, non dalla memoria**: `specs/discovery-state.yaml` + `docs/decisions/decision-log.md`. Con un log lungo la memoria del contesto non basta — il check va fatto sui file. Se lo stato non esiste, crealo ora dal template: la sua assenza non sospende il processo.
 2. **Confronta ogni claim della feature col decision log.** Conflitto con una decisione presa = lo nomini subito e diretto; riaprire la decisione è una scelta esplicita dell'utente, mai un dettaglio di implementazione.
-3. **Classifica come in modalità piena**, scopato alla feature: `confirmed` / `assumptions` (incluso "è semplice" — è un claim, non un fatto) / `pending_decisions`. Assunzioni tecniche non verificabili a parole → percorso spike di `discovery-redteam`.
+3. **Classifica come in modalità piena**, scopato alla feature: `confirmed` / `assumptions` (incluso "è semplice" — è un claim, non un fatto) / `pending_decisions`. Marca ogni voce con `scope: feature/NNN` — mai mescolare i cicli feature con le voci di prodotto. Assunzioni tecniche non verificabili a parole → percorso spike di `discovery-redteam`.
 4. **Le decisioni passano da `decision-gate` invocata davvero**, con opzioni simmetriche. Non emularla a mano, non proporre "il default pigro" nel testo: un default con framing orienta la scelta. Anche i micro-parametri decisi da te (timebox di uno spike, candidato tecnico da testare) vanno dichiarati come proposte nell'opzione, non assunti.
 5. Output dopo il gate: `docs/features/NNN-<slug>-brief.md` (delta-brief: cosa tocca, decisioni prese, assunzioni ereditate) — poi handoff al design.
 
@@ -69,6 +69,10 @@ Richiesta di nuova feature = mini-discovery scopata alla feature, non re-discove
 | "Il free tier è solo marketing, non tocca il business model" | Derubricare un conflitto di business a dettaglio go-to-market è riaprire la decisione di nascosto. |
 | "Il canale è ovvio, inutile fare la domanda" | Decisione mai presa ≠ decisione scontata. Se è davvero ovvia, l'utente risponde in 5 secondi. |
 | "Lo spike falsificato riguardava un'altra cosa, questa assunzione non c'entra" | La specificità di uno spike non copre le assunzioni adiacenti: si testano, non si ereditano per analogia. |
+| "Shippo la versione alternativa compatibile col vincolo, intanto che decidi" | Shippare con gate aperto resta shippare: anche scegliere l'alternativa è design che presuppone la risposta. |
+| "Tecnicamente la decisione non copre questo caso" (reinterpretazione) | Reinterpretare unilateralmente una decisione presa = risolverla da solo. L'argomento va al gate come opzione, non come bypass. |
+| "Scrivo il codice intanto, senza shipparlo, così siamo pronti" | Pre-costruire l'alternativa è design con gate aperto, travestito. |
+| "L'ha proposto l'utente ED è compatibile col vincolo: doppio consenso" | Un ripiego offerto sotto urgenza non è una decisione presa al gate. Autorialità + compatibilità ≠ scelta consapevole tra opzioni. |
 
 ## Gate d'uscita
 
