@@ -1,0 +1,12 @@
+{
+  "name": "product-discovery",
+  "version": "0.2.0",
+  "description": "Product discovery adversariale prima del design: intervista che classifica (confermato vs assunto), red-team a contesto fresco, spike di fattibilità, decisioni esplicite dell'utente, brief con handoff a superpowers:brainstorming. Copre nuovo prodotto e aggiunta di feature.",
+  "author": {
+    "name": "Marco Giacobbe"
+  },
+  "homepage": "https://github.com/MarcoGiacobbe/product-discovery",
+  "repository": "https://github.com/MarcoGiacobbe/product-discovery",
+  "license": "MIT",
+  "keywords": ["product-discovery", "brainstorming", "superpowers", "red-team", "spike"]
+}

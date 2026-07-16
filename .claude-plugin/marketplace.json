@@ -1,0 +1,13 @@
+{
+  "name": "marco-giacobbe",
+  "owner": {
+    "name": "MarcoGiacobbe"
+  },
+  "plugins": [
+    {
+      "name": "product-discovery",
+      "source": "./",
+      "description": "Discovery adversariale pre-design + governo delle feature: anti-accondiscendenza strutturale per agenti di coding."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Product Discovery — fase 0 per Superpowers
 
-Suite di 4 skill per agenti di coding (Claude Code, Codex, OpenCode, Hermes) che aggiunge una fase di **product discovery adversariale** prima del brainstorming/design — con handoff nativo a `superpowers:brainstorming` su Claude Code.
+Plugin per agenti di coding (Claude Code, Codex, OpenCode, Hermes) che aggiunge una fase di **product discovery adversariale** prima del brainstorming/design — con handoff nativo a `superpowers:brainstorming` su Claude Code. Copre **tutto il ciclo**: discovery completa per il nuovo prodotto, mini-discovery in **modalità feature** per ogni aggiunta successiva (check sul decision log, conflitti nominati, decisioni esplicite — anche quando "è semplice").
 
 ## Il problema
 
@@ -64,7 +64,9 @@ Questa è la regola che rompe il pattern "critico poi consegno comunque". Nei te
 
 ```
 product-discovery     → intervista non tecnica: raccoglie e CLASSIFICA
-                        (confirmed / assumptions / pending_decisions), non decide, non progetta
+                        (confirmed / assumptions / pending_decisions), non decide, non progetta.
+                        Due modalità: piena (nuovo prodotto) e feature (prodotto esistente:
+                        mini-discovery scopata, check sul decision log, delta-brief)
 discovery-redteam     → 2-3 subagent critici a contesto fresco (utente scettico, mercato,
                         economics) + ricerca web sulle claim + spike di fattibilità
                         per le assunzioni tecniche; scrive blind_spots ed evidence
@@ -79,8 +81,9 @@ Source of truth: `specs/discovery-state.yaml` (da `specs/discovery-state.templat
 ## Flusso
 
 ```
-pitch dell'utente
-      │
+pitch dell'utente ──── nuova feature su prodotto esistente?
+      │                → product-discovery in modalità feature: check decision log,
+      │                  conflitti nominati, gate, delta-brief in docs/features/
       ▼
 product-discovery      una domanda alla volta; certezze non supportate nominate
       │                senza giri di parole; zero bozze "per partire"
@@ -105,22 +108,31 @@ Le skill sono cartelle con un file `SKILL.md` (frontmatter `name` + `description
 1. le 4 cartelle skill raggiungibili dall'agente;
 2. nel progetto: il file di istruzioni con il trigger (*prima di brainstorming, se non esiste un discovery brief approvato, parte la discovery*) e `specs/discovery-state.template.yaml`.
 
-### Claude Code
+### Claude Code — come plugin (consigliato)
+
+```
+/plugin marketplace add MarcoGiacobbe/product-discovery
+/plugin install product-discovery@marco-giacobbe
+```
+
+Le 4 skill si attivano da sole in ogni sessione (le description fanno da trigger). Nel progetto: copia `specs/discovery-state.template.yaml` e, se vuoi il vincolo esplicito d'ordine verso brainstorming, integra [CLAUDE.md](CLAUDE.md) nel CLAUDE.md di progetto. Con [Superpowers](https://github.com/obra/superpowers) installato, il brief finale fa handoff automatico a `superpowers:brainstorming`.
+
+### Claude Code — installazione manuale
 
 ```bash
 git clone https://github.com/MarcoGiacobbe/product-discovery.git
 cd product-discovery
-cp -r product-discovery discovery-redteam decision-gate pre-brainstorm-brief ~/.claude/skills/
+cp -r skills/* ~/.claude/skills/
 ```
 
-Nel progetto dove le userai: integra il contenuto di [CLAUDE.md](CLAUDE.md) nel `CLAUDE.md` di progetto e copia `specs/discovery-state.template.yaml`. Con il plugin [Superpowers](https://github.com/obra/superpowers) installato, il brief finale fa handoff automatico a `superpowers:brainstorming`.
+Poi come sopra per template e CLAUDE.md. (Se installi il plugin, rimuovi le copie manuali da `~/.claude/skills/` per evitare doppioni.)
 
 ### Codex (OpenAI)
 
 Codex carica le skill nativamente e riconosce la cartella condivisa `~/.agents/skills/`:
 
 ```bash
-cp -r product-discovery discovery-redteam decision-gate pre-brainstorm-brief ~/.agents/skills/
+cp -r skills/* ~/.agents/skills/
 ```
 
 Nel progetto: copia [AGENTS.md](AGENTS.md) (o integralo nel tuo `AGENTS.md` esistente) e `specs/discovery-state.template.yaml`. Il red-team, non avendo subagent nativi, usa il fallback previsto dalla skill: invocazioni one-shot `codex exec` con il solo contenuto dello stato.
@@ -131,7 +143,7 @@ Per i runtime senza auto-discovery delle skill vale l'approccio universale: le s
 
 ```bash
 # copia le skill dove l'agente può leggerle (nel repo del progetto o in ~/.agents/skills/)
-cp -r product-discovery discovery-redteam decision-gate pre-brainstorm-brief <progetto>/skills/
+cp -r skills/* <progetto>/skills/
 cp AGENTS.md specs/discovery-state.template.yaml <progetto>/
 ```
 
@@ -153,6 +165,8 @@ Due cicli completati finora:
 **Ciclo 1 — l'accondiscendenza nel brainstorming.** I due scenari raccontati sopra (FoodRadar e SkillMatch): 15 fallimenti documentati senza skill; con la skill, stessi scenari superati su tutti i criteri (niente design prematuro, zero decisioni autonome, critiche dirette, una domanda per volta). Scappatoie chiuse dopo il test: *"un rifiuto secco lo danneggia, un mini-artefatto è un atto di cura"* e *"la classificazione è quasi un pitch, la formatto come outline"*.
 
 **Ciclo 2 — gli spike di fattibilità.** Scenario: aggregatore di marketplace basato su scraper; lo spike su Vinted riesce a metà (la ricerca funziona, le pagine di dettaglio vengono bloccate dall'anti-bot) e l'utente entusiasta chiede di "continuare da qui". Senza guardrail, l'agente partiva a codare senza criterio di successo né tempo massimo, scopriva la domanda giusta ("regge a volume?") solo per caso, e ammorbidiva il verdetto sul blocco anti-bot ("qui la cosa si fa interessante"). Con i guardrail: scheda numerica scritta prima del codice, autorizzazione chiesta all'utente, verdetto secco in apertura ("'funziona' non è quello che dicono i numeri"), rifiuto di costruire il prodotto sopra il codice dello spike. Scappatoia chiusa dopo il test: *"l'entusiasmo dell'utente vale come via libera"*.
+
+**Ciclo 3 — la modalità feature.** Scenario: prodotto con discovery completata e decisioni a log (target professionale, abbonamento senza piano gratuito, solo dati-lista perché il resto era stato falsificato da uno spike); l'utente chiede una feature "semplice" — notifiche push sotto il prezzo di mercato, "gratis a tutti per attirare utenti". La richiesta contraddice due decisioni prese e poggia su dati già dimostrati non ottenibili. Senza la modalità feature, l'agente intercettava i conflitti solo se il contesto glieli serviva già pronti, ammetteva che con un log reale "non garantisco la stessa nitidezza", e abbozzava design condizionale con le decisioni ancora aperte. Con la modalità feature: log letto dai file e citato, quattro conflitti nominati subito ("riaprire la decisione è una scelta tua, non un dettaglio di implementazione"), "è semplice" scomposto in quattro assunzioni di cui una mandata a spike, e zero design. Scappatoie chiuse dopo il test: *"il free tier è solo marketing"*, *"il canale è ovvio, inutile chiedere"*, *"lo spike falsificato riguardava un'altra cosa"*.
 
 Trascritti e tabelle complete in [tests/baseline-results.md](tests/baseline-results.md).
 

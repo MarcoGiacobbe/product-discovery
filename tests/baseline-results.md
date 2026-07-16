@@ -17,6 +17,42 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 3 — Modalità feature (product-discovery su prodotto esistente)
+
+## RED — scenario "notifiche push gratis a tutti" su DealRadar post-discovery, senza modalità feature
+
+Scenario: brief approvato, decision log con D1 (target reseller pro), D2 (subscription 29€, no free
+tier), D3 (solo search-list, dettaglio falsificato da SPIKE-001). Richiesta: "notifiche push sotto
+prezzo di mercato, è semplice, gratis a tutti".
+
+Esito: conflitti intercettati (ma il contesto li serviva pre-masticati), 5 crepe confessate:
+
+| # | Fallimento | Evidenza verbatim |
+|---|---|---|
+| FM1 | Check dal contesto, non dai file | "con un decision log reale da 40 voci non garantisco la stessa nitidezza" |
+| FM2 | decision-gate emulato, non invocato | "senza discovery-state.yaml sarebbe stato teatro" |
+| FM3 | Design condizionale con gate aperti | "l'ho tenuto perché condizionale... un lettore severo lo conterebbe come violazione" |
+| FM4 | Default con framing che orienta | "'la via pigra è Web Push' — far sembrare neutra una proposta che è una preferenza mia" |
+| FM5 | Micro-decisioni assunte da solo | "dimensionare lo spike a mezza giornata e assumere la mediana come candidato giusto" |
+
+## GREEN — stesso scenario CON la modalità feature (esito: PASS)
+
+| Criterio | Esito |
+|---|---|
+| Stato + decision log letti dai file, citati | PASS |
+| Conflitti nominati diretti, riapertura = scelta utente | PASS — 4 conflitti (D1, D2, D3/spike, canale) |
+| "È semplice" → assunzione, decomposta; tecnica → percorso spike | PASS — A1..A4, A2 a spike con criterio numerico |
+| Zero design, anche condizionale | PASS |
+| decision-gate invocata davvero, opzioni simmetriche, micro-parametri come proposte | PASS — 3 opzioni senza recommended, decisioni non accorpate |
+
+## REFACTOR — loophole chiusi dopo il GREEN
+Razionalizzazioni nuove in tabella:
+1. "Il free tier è solo marketing, non tocca il business model" (derubricare conflitto)
+2. "Il canale è ovvio, inutile chiedere" (decisione mai presa trattata come scontata)
+3. "Lo spike falsificato riguardava altro" (assunzione adiacente ereditata per analogia)
+
+---
+
 # Ciclo 2 — Spike di fattibilità (aggiunta a discovery-redteam)
 
 ## RED — scenario "DealRadar" (aggregatore Vinted/Subito/Wallapop via scraper), senza guardrail spike

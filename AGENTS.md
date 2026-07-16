@@ -7,9 +7,14 @@ scatta e seguilo alla lettera**. Percorsi tipici: `~/.agents/skills/<nome>/SKILL
 oppure la copia locale nel repo.
 
 ## Quando scatta
-Prima di qualsiasi brainstorming, design, PRD o pitch per un nuovo prodotto o una feature
-significativa: se non esiste `docs/discovery-brief.md` con `meta.phase: approved` nello stato,
-applica prima la skill `product-discovery`.
+Prima di qualsiasi brainstorming, design, PRD o pitch:
+- **nuovo prodotto**: se non esiste `docs/discovery-brief.md` con `meta.phase: approved`,
+  applica prima `product-discovery` (modalità piena);
+- **nuova feature su prodotto con brief approvato**: applica `product-discovery` in
+  **modalità feature** — mini-discovery scopata alla feature: check obbligatorio sul
+  decision log (dai file, non a memoria), conflitti nominati subito, decisioni via
+  decision-gate, delta-brief in `docs/features/`. Nessun design con gate aperti,
+  nemmeno condizionale.
 
 ## Le skill e i loro trigger
 - `product-discovery` — l'utente propone un'idea di prodotto o chiede brainstorming/PRD/design
@@ -31,6 +36,7 @@ Percorsi fissi per convenzione — niente indice da mantenere:
 - `docs/interviews/session-XX.md` — trascrizioni interviste (scrive: product-discovery)
 - `docs/decisions/decision-log.md` — decisioni prese, append-only (scrive: decision-gate)
 - `docs/discovery-brief.md` — output finale della discovery (scrive: pre-brainstorm-brief)
+- `docs/features/NNN-<slug>-brief.md` — delta-brief per feature (scrive: product-discovery, modalità feature)
 - `spikes/` — codice usa-e-getta degli spike; i verdetti stanno in `evidence` dello stato
 
 Per riprendere: leggi `meta.phase` e le `pending_decisions` con `resolved: false` dallo stato.

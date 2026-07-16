@@ -1,8 +1,13 @@
 # Product Discovery Layer (fase 0 di Superpowers)
 
 ## Quando scatta
-Prima di invocare `superpowers:brainstorming` per un nuovo prodotto o una feature significativa:
-se non esiste `docs/discovery-brief.md` con `meta.phase: approved` nello stato, invoca prima `product-discovery`.
+Prima di invocare `superpowers:brainstorming` (o qualsiasi design):
+- **nuovo prodotto**: se non esiste `docs/discovery-brief.md` con `meta.phase: approved`,
+  invoca prima `product-discovery` (modalità piena);
+- **nuova feature su prodotto con brief approvato**: invoca `product-discovery` in
+  **modalità feature** — mini-discovery scopata alla feature: check sul decision log
+  dai file, conflitti nominati subito, decisioni via `decision-gate`, delta-brief in
+  `docs/features/`. Nessun design con gate aperti, nemmeno condizionale.
 
 ## Source of truth
 `specs/discovery-state.yaml` (creato dal template in `specs/discovery-state.template.yaml`).
@@ -20,6 +25,7 @@ Percorsi fissi per convenzione — niente indice da mantenere:
 - `docs/interviews/session-XX.md` — trascrizioni interviste (scrive: product-discovery)
 - `docs/decisions/decision-log.md` — decisioni prese, append-only (scrive: decision-gate)
 - `docs/discovery-brief.md` — output finale della discovery (scrive: pre-brainstorm-brief)
+- `docs/features/NNN-<slug>-brief.md` — delta-brief per feature (scrive: product-discovery, modalità feature)
 - `spikes/` — codice usa-e-getta degli spike; i verdetti stanno in `evidence` dello stato
 
 Per riprendere: leggi `meta.phase` e le `pending_decisions` con `resolved: false` dallo stato.
