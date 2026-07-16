@@ -101,6 +101,8 @@ pre-brainstorm-brief   brief approvato → handoff a superpowers:brainstorming
 superpowers (brainstorming → writing-plans → TDD…)
 ```
 
+**Handoff pulito:** a brief approvato, la skill ti consegna un prompt pronto per avviare il design in una **sessione nuova**. Il motivo: una chat di discovery lunga degrada l'aderenza alle istruzioni e alimenta proprio l'accondiscendenza che il plugin combatte. Non si perde nulla — tutto vive nei file (brief, decision log, stato), la chat è usa-e-getta per costruzione.
+
 ## Installazione
 
 Le skill sono cartelle con un file `SKILL.md` (frontmatter `name` + `description`, formato [agentskills.io](https://agentskills.io)) e sono **runtime-neutral**: ogni passaggio che dipende da uno strumento specifico (domande strutturate, subagent) ha un fallback dichiarato dentro la skill. In ogni caso servono due cose:

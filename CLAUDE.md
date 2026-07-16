@@ -36,4 +36,6 @@ Quando `superpowers:brainstorming` parte dopo la discovery, riceve `docs/discove
 - tratta i punti `confirmed` come vincoli non rinegoziabili;
 - tratta le `pending_decisions` residue come domande da porre all'utente — MAI da risolvere da solo;
 - non riapre decisioni presenti in `docs/decisions/decision-log.md` senza chiederlo esplicitamente;
-- eredita le `assumptions` non validate come rischi dichiarati nel design, non come fatti.
+- eredita le `assumptions` non validate come rischi dichiarati nel design, non come fatti;
+- parte preferibilmente in una **sessione nuova**: tutto il necessario è su file, la cronologia
+  della discovery non serve e non va usata (contesto lungo = più sycophancy, meno aderenza).

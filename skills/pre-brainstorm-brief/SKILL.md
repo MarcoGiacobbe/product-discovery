@@ -35,3 +35,8 @@ Tutte le `pending_decisions` con `impact: high` sono `resolved: true` con `decid
 
 1. Chiedi all'utente l'approvazione esplicita del brief. Se approvato: `meta.phase: approved`.
 2. Handoff alla fase di design con il contratto (da CLAUDE.md/AGENTS.md): `confirmed` e decisioni = vincoli non rinegoziabili; assunzioni aperte = rischi da dichiarare nel design; decisioni residue = domande da porre all'utente, mai da risolvere in autonomia. Se Superpowers è installato, invoca `superpowers:brainstorming` passando il brief come contesto; altrimenti avvia il normale flusso di design/planning del runtime usando il brief come unico input.
+3. **Handoff pulito (consigliato).** Una discovery lunga riempie il contesto: l'instruction-following degrada e il momentum conversazionale — la radice della sycophancy — cresce. Tutto ciò che serve al design è già su file, quindi proponi all'utente di avviare il design in una **sessione nuova**, consegnandogli il prompt pronto da incollare:
+
+   > Leggi `docs/discovery-brief.md` e `docs/decisions/decision-log.md`, poi avvia il brainstorming/design rispettando l'handoff contract in CLAUDE.md: punti confermati e decisioni = vincoli non rinegoziabili; assunzioni aperte = rischi dichiarati nel design; decisioni residue = domande da pormi, mai da risolvere in autonomia.
+
+   Se l'utente preferisce restare nella stessa sessione, procedi — ma il brief resta l'unico input: non attingere alla cronologia della discovery. Meglio sessione nuova che /compact: il compact riassume e può perdere sfumature, i file no.
