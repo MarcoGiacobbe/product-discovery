@@ -17,6 +17,36 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 8 — E2E test + fix dei percorsi PIVOT / ordine d0-spike (v0.6.1)
+
+## Origine
+Test end-to-end simulato (idea GymRush, affollamento palestre). Flusso completo retto,
+outcome PIVOT onesto forzato da spike falsificato. Il self-audit del test ha trovato 4
+ambiguità DI SPECIFICA (non di comportamento) sui percorsi mai esercitati prima:
+1. ordine d0 vs spike (d0 dipende da spike autorizzato dopo d0)
+2. PIVOT "torna in discovery sul delta" — quanto si torna, non specificato
+3. PIVOT → brief stesso ciclo o riparte da discovery?
+4. blind_spot med accettato resta cosmeticamente `open`
+
+## Fix
+- decision-gate: GO condizionato quando il crux è tecnico aperto (d0 non aspetta lo spike;
+  decide se vale scoprirlo); percorso PIVOT stretto (chiude al gate) vs largo (torna a
+  product-discovery, phase: discovery, solo il delta), dichiarato esplicitamente.
+- template + discovery-redteam: stato `deferred` per i med accettati nel brief.
+
+## GREEN (percorso critico: d0 crux aperto → spike → PIVOT largo)
+Scenario ParkFlow (posti strada → aggregatore box, pivot che apre mercato mai intervistato):
+PASS 4/4 chiave — GO condizionato senza bloccarsi, secondo giro d0 dopo spike disproven,
+pivot giudicato largo → ritorno a product-discovery/discovery (non wave-through ad approved),
+path dichiarato.
+
+## REFACTOR (3 ambiguità di confine dal self-audit GREEN)
+- decisione con oggetto confutato da spike → `superseded`, non resta `resolved` bugiarda.
+- pivot solo-su-business-model = area nuova (il business model è sempre high).
+- pivot che apre aree in modalità feature → riporta feature_cycle all'inizio.
+
+---
+
 # Ciclo 7 — Generalizzazione analoghi + decisione zero + batteria stress
 
 ## Fix (da discussione con l'utente)

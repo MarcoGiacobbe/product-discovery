@@ -13,10 +13,18 @@ Trasforma ogni decisione aperta in una scelta esplicita **fatta dall'utente**, m
 
 La prima volta che il gate si apre dopo il red-team — per il prodotto o per un ciclo feature — la prima decisione non viene dal file: è la **decisione zero**, quella che il processo altrimenti assumerebbe in silenzio: *ha senso continuare?*
 
-- Modalità piena: **GO** (il quadro regge, si continua) / **PIVOT** (il problema è vero ma l'angolo è sbagliato: si nomina cosa cambia e si torna in discovery sul delta) / **STOP** (le evidenze non reggono il costo di continuare).
+- Modalità piena: **GO** (il quadro regge, si continua) / **PIVOT** (il problema è vero ma l'angolo è sbagliato: si nomina cosa cambia) / **STOP** (le evidenze non reggono il costo di continuare).
 - Modalità feature: **vale il costo** / **non ora** / **mai**.
 
 Scheda estesa obbligatoria: evidenze a favore e contro per id, blind spot residui, cosa deve essere vero perché il GO abbia senso. Si registra nel decision log come le altre (`id: d0` del ciclo corrente, col suo `scope`).
+
+**Se il crux è un'assunzione tecnica ancora aperta** (spike non ancora eseguito): d0 non si blocca in attesa. È legittimo un **GO condizionato** — "si continua mettendo lo spike come primissima validazione" — che porta subito alla decisione sulla fonte (spike / accetta rischio / taglia), il cui verdetto può rimandare a un secondo giro di d0. Oppure PIVOT/STOP se il crux è così aperto da togliere senso al continuare. Non serve conoscere l'esito dello spike per prendere d0: d0 decide *se vale la pena scoprirlo*.
+
+**Dopo un PIVOT.** Il PIVOT nomina il **delta** (cosa cambia: target, problema, angolo). Poi:
+- se il delta è **stretto** (ridefinizione di target/scope già emersa nella discovery, nessuna area nuova da esplorare) → si chiude con le decisioni residue qui al gate, senza reintervista; `meta.phase` prosegue verso `approved`;
+- se il delta **apre aree non coperte** (nuovo problema, nuovo utente mai intervistato, **o un modello di business mai validato** — il business model è sempre `impact: high`, quindi un pivot che lo cambia da solo conta come area nuova) → torna a `product-discovery` sul solo delta: riporta `meta.phase: discovery`, aggiorna la copertura minima sulle aree nuove, poi rifai il giro. Non è una re-discovery completa: solo il delta.
+Dillo esplicitamente all'utente: "il pivot è stretto, chiudo qui" oppure "il pivot apre X, torno a due domande su X".
+Quando un secondo giro di d0 riapre il quadro (es. spike che confuta il crux), le decisioni già `resolved` il cui *oggetto* è caduto vanno marcate `superseded` con nota, non lasciate `resolved` a mentire. Lo stesso ritorno-su-delta vale in modalità feature: un pivot che apre aree nuove riporta `meta.feature_cycle` all'inizio del ciclo, non lascia proseguire verso il delta-brief.
 
 Guardrail: **ammorbidire il quadro pur di non presentare l'opzione STOP è la sycophancy peggiore di tutte** — uno STOP onesto a inizio progetto vale mesi; un GO compiacente li brucia. E vale il simmetrico: non drammatizzare per sembrare rigorosi. Tu presenti il quadro, la scelta resta dell'utente.
 

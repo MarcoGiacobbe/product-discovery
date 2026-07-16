@@ -31,7 +31,7 @@ blind_spots:                # scritti SOLO da discovery-redteam (mai da chi racc
   #   description: ""
   #   severity: high        # low | med | high
   #   resolving_question: ""
-  #   status: open          # open | resolved
+  #   status: open          # open | resolved | deferred (med accettato: va nel brief come rischio dichiarato)
 
 evidence:                   # risultati di ricerca esterna o spike (competitor, mercato, esperimenti)
   # - id: e1
