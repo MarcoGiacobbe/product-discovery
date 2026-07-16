@@ -6,6 +6,13 @@ agentskills.io). Se il runtime non le carica automaticamente, leggi il `SKILL.md
 corrispondente quando il trigger scatta e seguilo alla lettera (percorsi tipici:
 `~/.claude/skills/`, `~/.agents/skills/`, o la copia nel repo).
 
+## A inizio sessione (proattivo, non aspettare che l'utente lo chieda)
+Se esiste `specs/discovery-state.yaml`, leggilo come prima cosa. Se `meta.phase` non è
+`approved`, o `meta.feature_cycle` è attivo (non `null`/`done`), o esistono `pending_decisions`
+con `resolved: false`: di' subito all'utente a che punto è la discovery (fase, decisioni aperte)
+e proponi di riprendere dal punto esatto — senza aspettare che sia lui a nominarla.
+Il comando `/discovery` forza in ogni momento avvio o ripresa dallo stato.
+
 ## Quando scatta
 Prima di qualsiasi brainstorming, design, PRD o pitch:
 - **nuovo prodotto**: se `specs/discovery-state.yaml` non esiste o non ha `meta.phase: approved`,

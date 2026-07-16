@@ -79,6 +79,6 @@ Richiesta di nuova feature = mini-discovery scopata alla feature, non re-discove
 
 ## Gate d'uscita
 
-Modalità piena: passa a `discovery-redteam` solo quando: utente primario ragionevolmente stretto, problema concreto con esempi reali, `assumptions` e `pending_decisions` popolate. Se il materiale è debole, di' esattamente cosa manca.
+Modalità piena: passa a `discovery-redteam` solo quando: utente primario ragionevolmente stretto, problema concreto con esempi reali, `assumptions` e `pending_decisions` popolate. **Copertura minima delle assunzioni** — almeno una voce (confirmed o assumption) per ciascuna area: problema osservato, target, alternative attuali dell'utente-tipo, disponibilità a pagare/valore, canale di arrivo, fattibilità tecnica. Area scoperta = domanda ancora da fare, non area da saltare. Se il materiale è debole, di' esattamente cosa manca.
 
 Modalità feature: passa a `discovery-redteam` se restano `assumptions` non validate con `confidence: low|med` su cui la feature poggia, altrimenti direttamente a `decision-gate`. Il delta-brief si scrive solo a gate chiusi. All'avvio del ciclo setta `meta.feature_cycle: feature/NNN` nello stato (torna `done` alla chiusura).

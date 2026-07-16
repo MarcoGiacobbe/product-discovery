@@ -44,6 +44,8 @@ Ogni subagent restituisce blind spot con severità e domanda risolutiva. Istruis
 
 **4. Fusione.** Dedup dei blind spot, scrittura in `blind_spots`. Ogni blind spot che implica una scelta strategica genera una `pending_decision` con `impact` — non resta un warning generico.
 
+**5. Loop di approfondimento (il red-team non è un passaggio unico).** Ogni blind spot con una `resolving_question` a cui può rispondere solo l'utente torna all'intervista: poni le domande mirate (stile `product-discovery`: una alla volta, esempi concreti), registra le risposte come nuove `confirmed`/`assumptions`. Se le risposte cambiano il quadro in modo sostanziale, ri-esegui il red-team sul quadro aggiornato — le lenti fresche non hanno visto le risposte nuove. Massimo 2 giri completi: i blind spot ancora aperti al termine diventano `pending_decisions` o rischi dichiarati, non si trascinano. Chiudere il red-team con le domande risolutive mai poste all'utente = consegnare al gate un quadro monco.
+
 ## Cosa NON fai
 
 - Non risolvi i blind spot: li trasformi in domande o decisioni.
@@ -52,4 +54,4 @@ Ogni subagent restituisce blind spot con severità e domanda risolutiva. Istruis
 
 ## Gate d'uscita
 
-Passa a `decision-gate` quando ogni blind spot `severity: high` è `resolved` (chiarito con l'utente) o convertito in `pending_decision`. Se il red-team rivela che la discovery è troppo debole (target inesistente, problema non osservato), torna a fare domande — dicendo esattamente quali.
+Passa a `decision-gate` quando ogni blind spot `severity: high` è `resolved` (chiarito con l'utente tramite il loop del passo 5) o convertito in `pending_decision`, e le `resolving_question` rivolte all'utente hanno avuto risposta o sono diventate decisioni. Se il red-team rivela che la discovery è troppo debole (target inesistente, problema non osservato), torna a fare domande — dicendo esattamente quali.

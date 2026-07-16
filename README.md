@@ -120,6 +120,8 @@ Perché la sessione nuova? Una chat di discovery lunga degrada l'aderenza alle i
 
 **Feature successive:** chiedi la feature in una sessione qualsiasi del progetto ("aggiungi X"). La modalità feature scatta da sola: check sul decision log, mini-ciclo, delta-brief, stesso handoff.
 
+**Riprendere in una chat nuova:** apri la sessione nella cartella del progetto e basta — a inizio sessione l'agente legge lo stato e, se la discovery è a metà, ti dice a che punto sei e propone di riprendere. Se non lo fa (o vuoi forzare): **`/discovery`** — legge lo stato e instrada al punto giusto; accetta anche un pitch come argomento (`/discovery la mia idea è...`).
+
 ## Installazione
 
 Le skill sono cartelle con un file `SKILL.md` (frontmatter `name` + `description`, formato [agentskills.io](https://agentskills.io)) e sono **runtime-neutral**: ogni passaggio che dipende da uno strumento specifico (domande strutturate, subagent) ha un fallback dichiarato dentro la skill. In ogni caso servono due cose:

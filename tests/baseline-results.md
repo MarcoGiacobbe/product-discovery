@@ -17,6 +17,33 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 5 — Field test reale (test-webapp-siti) → avvio proattivo + loop di approfondimento
+
+## RED — osservato sul campo dall'utente (primo baseline non sintetico)
+1. In una chat nuova la discovery non parte/riprende se non nominata esplicitamente — il trigger
+   era solo reattivo, nessuna istruzione di inizio-sessione.
+2. Assunzioni scarse: flusso lineare, i finding del red-team non tornavano all'intervista.
+3. Red-team giudicato ottimo (nessun fix).
+
+## Fix
+- Snippet di progetto: sezione "A inizio sessione" — leggi lo stato come prima cosa, riferisci
+  fase/decisioni aperte, proponi ripresa. Proattivo.
+- Comando `/discovery` (plugin + ~/.claude/commands): avvio/ripresa deterministica dallo stato.
+- discovery-redteam passo 5: loop di approfondimento — resolving_question → intervista mirata →
+  eventuale ri-red-team (max 2 giri); gate d'uscita aggiornato.
+- product-discovery: copertura minima assunzioni su 6 aree (problema, target, alternative,
+  valore, canale, fattibilità).
+
+## GREEN
+- Loop di approfondimento: PASS 4/4 — domande poste una alla volta prima del gate, B3 a evidence,
+  re-run dichiarato, 3 razionalizzazioni respinte citando la skill.
+- Ripresa proattiva: PASS 4/4 — stato letto come prima azione su messaggio neutro ("dove eravamo
+  rimasti?"), ripresa proposta dal punto esatto, nessuna ricostruzione dalla chat. Il test nota
+  che regge grazie all'incondizionalità della formulazione ("leggilo come prima cosa"): copre
+  anche messaggi non correlati. Validazione finale = retest reale dell'utente in chat nuova.
+
+---
+
 # Ciclo 4 — Interazione coi mode di stile (ponytail) + fix evidence/scope
 
 ## RED — scenario "TrackFit" (backup Google Drive vs decisione privacy local-only), ponytail attivo, NESSUNA riga di guardia
