@@ -1,5 +1,7 @@
 # Product Discovery — fase 0 per Superpowers
 
+**v0.6.1** · [changelog](https://github.com/MarcoGiacobbe/product-discovery/releases)
+
 Plugin per agenti di coding (Claude Code, Codex, OpenCode, Hermes) che aggiunge una fase di **product discovery adversariale** prima del brainstorming/design — con handoff nativo a `superpowers:brainstorming` su Claude Code. Copre **tutto il ciclo**: discovery completa per il nuovo prodotto, mini-discovery in **modalità feature** per ogni aggiunta successiva (check sul decision log, conflitti nominati, decisioni esplicite — anche quando "è semplice").
 
 ## Il problema
