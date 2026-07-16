@@ -1,0 +1,56 @@
+# Template: copiare in specs/discovery-state.yaml al primo avvio della discovery.
+# UNICA source of truth del processo. Ogni skill aggiorna SOLO le sezioni di cui è autrice.
+# Autori: product-discovery -> confirmed, assumptions, pending_decisions (raccolta)
+#         discovery-redteam -> blind_spots, evidence, pending_decisions (aggiunta)
+#         decision-gate     -> pending_decisions (risoluzione)
+#         pre-brainstorm-brief -> meta.phase = brief | approved
+
+meta:
+  project: ""
+  phase: discovery          # discovery | redteam | decisions | brief | approved
+  updated_by: ""            # skill che ha scritto per ultima
+
+confirmed:                  # SOLO affermazioni esplicitamente confermate dall'utente, citabili alla lettera
+  # - id: c1
+  #   statement: ""
+  #   source: session-01    # dove l'utente l'ha detto/confermato
+
+assumptions:                # inferenze NON confermate — incluse quelle fatte dall'AI
+  # - id: a1
+  #   statement: ""
+  #   made_by: ai           # ai | user
+  #   confidence: low       # low | med | high
+  #   evidence_id: null     # link a evidence, null = non validata
+  #   scope: product        # product | feature/NNN — le voci di modalità feature vanno marcate
+
+blind_spots:                # scritti SOLO da discovery-redteam (mai da chi raccoglie)
+  # - id: b1
+  #   description: ""
+  #   severity: high        # low | med | high
+  #   resolving_question: ""
+  #   status: open          # open | resolved
+
+evidence:                   # risultati di ricerca esterna o spike (competitor, mercato, esperimenti)
+  # - id: e1
+  #   claim_tested: a1      # quale assunzione testa
+  #   finding: ""
+  #   source: ""            # URL o fonte
+  # Voce da spike (method: spike) — scheda scritta PRIMA del codice, verdetto dopo:
+  # - id: e2
+  #   claim_tested: a2
+  #   method: spike
+  #   question: ""          # UNA domanda falsificabile, dichiarata prima di codare
+  #   success_criterion: "" # misurabile, con la scala vera ("N item in M min senza ban")
+  #   timebox: ""           # es. 4h — scaduto senza verdetto = "più difficile del previsto"
+  #   verdict: null         # proven | disproven | partial | harder-than-expected
+  #   finding: ""           # cosa è provato e cosa NO, con i numeri
+
+pending_decisions:          # UNICA sede delle decisioni; docs/decisions/decision-log.md ne è la proiezione
+  # - id: d1
+  #   decision: ""
+  #   impact: high          # high | med | low
+  #   options: []           # popolato da decision-gate
+  #   resolved: false
+  #   chosen: null
+  #   decided_by: null      # DEVE essere "user" perché conti come risolta
+  #   scope: product        # product | feature/NNN

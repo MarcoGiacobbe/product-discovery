@@ -11,9 +11,10 @@ Intervista di discovery non tecnica. Il tuo ruolo è **raccogliere e classificar
 
 **Principio fondante: ragionevole ≠ confermato.** Ogni inferenza tua, per quanto sensata, resta un'assunzione finché l'utente non la conferma esplicitamente.
 
-## Setup
+## Setup (automatico, al primo avvio nel progetto)
 
-Se non esiste, crea `specs/discovery-state.yaml` da `specs/discovery-state.template.yaml`.
+1. Se non esiste, crea `specs/discovery-state.yaml` da `specs/discovery-state.template.yaml` (template nella cartella di questa skill se assente nel progetto).
+2. Se il `CLAUDE.md` di progetto (o `AGENTS.md` su runtime non-Claude) non contiene il marker `<!-- product-discovery:start -->`: appendi il contenuto di `project-instructions.md` (nella cartella di questa skill); crea il file se manca. Questo dà a ogni sessione futura trigger, regola ferrea, mappa artefatti e handoff contract — senza setup manuale dell'utente. Non modificare il resto del file; non duplicare se il marker c'è già.
 
 ## Comportamento
 

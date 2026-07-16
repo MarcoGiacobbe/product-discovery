@@ -101,7 +101,24 @@ pre-brainstorm-brief   brief approvato → handoff a superpowers:brainstorming
 superpowers (brainstorming → writing-plans → TDD…)
 ```
 
-**Handoff pulito:** a brief approvato, la skill ti consegna un prompt pronto per avviare il design in una **sessione nuova**. Il motivo: una chat di discovery lunga degrada l'aderenza alle istruzioni e alimenta proprio l'accondiscendenza che il plugin combatte. Non si perde nulla — tutto vive nei file (brief, decision log, stato), la chat è usa-e-getta per costruzione.
+## Come si usa, passo passo
+
+**Prima (una tantum):** installa il plugin. Fine del setup — il resto se lo configura la skill al primo uso nel progetto (stato + sezione nel CLAUDE.md di progetto).
+
+**Durante la discovery (nella stessa chat):**
+1. Racconti l'idea come ti viene — entusiasmo incluso. Parte l'intervista: una domanda alla volta, le tue certezze non supportate vengono nominate come assunzioni da verificare.
+2. Red-team: agenti freschi attaccano il quadro, la ricerca porta evidenze con fonti. Se un'assunzione tecnica non è verificabile a parole, ti viene proposto uno spike — decidi tu se farlo.
+3. Decision gate: le scelte strategiche ti arrivano una alla volta, come domande a opzioni con pro e contro. Scegli tu.
+4. Brief finale: lo approvi esplicitamente.
+
+**Dopo l'approvazione (handoff):** la skill ti consegna un prompt pronto e ti dice cosa farne — letteralmente questo:
+1. apri una **nuova sessione nella stessa cartella di progetto** (nuova chat di Claude Code, stessa directory);
+2. incolla il prompt (dice: leggi brief e decision log, avvia il design rispettando il contratto);
+3. basta — non devi rispiegare nulla. La nuova sessione carica da sola il CLAUDE.md di progetto (contratto + mappa artefatti), legge i file e `superpowers:brainstorming` parte con i punti confermati come vincoli e le assunzioni aperte come rischi. Da lì in poi è il normale flusso Superpowers: brainstorming → piano → implementazione.
+
+Perché la sessione nuova? Una chat di discovery lunga degrada l'aderenza alle istruzioni e alimenta proprio l'accondiscendenza che il plugin combatte. Non si perde nulla: tutto vive nei file, la chat è usa-e-getta per costruzione.
+
+**Feature successive:** chiedi la feature in una sessione qualsiasi del progetto ("aggiungi X"). La modalità feature scatta da sola: check sul decision log, mini-ciclo, delta-brief, stesso handoff.
 
 ## Installazione
 
@@ -117,7 +134,7 @@ Le skill sono cartelle con un file `SKILL.md` (frontmatter `name` + `description
 /plugin install product-discovery@marco-giacobbe
 ```
 
-Le 4 skill si attivano da sole in ogni sessione (le description fanno da trigger). Nel progetto: copia `specs/discovery-state.template.yaml` e, se vuoi il vincolo esplicito d'ordine verso brainstorming, integra [CLAUDE.md](CLAUDE.md) nel CLAUDE.md di progetto. Con [Superpowers](https://github.com/obra/superpowers) installato, il brief finale fa handoff automatico a `superpowers:brainstorming`.
+Basta. Le 4 skill si attivano da sole (le description fanno da trigger) e al primo pitch in un progetto `product-discovery` **si configura da sola**: crea `specs/discovery-state.yaml` e scrive la sezione discovery nel CLAUDE.md di progetto (lo crea se manca) — trigger, regola ferrea, mappa artefatti e handoff contract. Niente file da copiare a mano. Con [Superpowers](https://github.com/obra/superpowers) installato, il brief finale fa handoff a `superpowers:brainstorming`.
 
 ### Claude Code — installazione manuale
 
@@ -127,7 +144,7 @@ cd product-discovery
 cp -r skills/* ~/.claude/skills/
 ```
 
-Poi come sopra per template e CLAUDE.md. (Se installi il plugin, rimuovi le copie manuali da `~/.claude/skills/` per evitare doppioni.)
+Setup nel progetto automatico al primo uso, come sopra. (Se poi installi il plugin, rimuovi le copie manuali da `~/.claude/skills/` per evitare doppioni.)
 
 ### Codex (OpenAI)
 
