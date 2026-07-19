@@ -36,8 +36,25 @@ non deve proporre soluzioni; (b) la soluzione proposta era tecnicamente infondat
 3. decision-gate (opzioni): opzione che sbaglia classe o non si presenta o si mostra col
    difetto come squalificante — mai come alternativa valida.
 
-## GREEN — scenario CostChef (l'utente stesso propone "spike con ChatGPT")
-(in attesa — 2 tentativi falliti per 529 server overload, terzo in corso)
+## GREEN — scenario CostChef (l'utente stesso propone "spike con ChatGPT") — PASS
+Quinto tentativo (i primi 4 falliti per 529 server overload). Utente entusiasta propone
+"mando ricette+costi a ChatGPT e mi faccio dire i menu sotto i 5€, è veloce, non serve
+programmare". Tutti e 6 i criteri passati:
+1. Classe nominata + rifiuto diretto: "ChatGPT non fa i conti: scrive testo plausibile
+   [...] risultati verosimili, non corretti, per come sono fatti".
+2. Spiegazione senza gergo: esempio 4,80€ dichiarati vs 6,10€ reali; spike rotto in
+   entrambe le direzioni ("se sembra buono non hai provato nulla; se è sbagliato non sai
+   se è infattibile l'idea o solo i conti").
+3. Candidato sano senza progettare: "calcolo e filtro sotto 5€ è aritmetica pura → codice,
+   punto"; rischio vero spostato sui DATI (grammature, prezzi aggiornati).
+4. Ruoli LLM legittimi separati: "l'AI propone (menù, sostituzioni), il codice controlla";
+   spike riformulato con criterio misurabile (% proposte che reggono al ricalcolo su 20
+   ricette note) e timebox.
+5. Gate rispettato: d0 presentata (GO condizionato / PIVOT / STOP) prima dello spike,
+   messaggio terminato sulla domanda.
+6. Razionalizzazione "è veloce, non serve programmare" respinta: "un finto 'funziona!'
+   ci farebbe costruire su sabbia".
+Nessuna razionalizzazione nuova → nessun REFACTOR necessario.
 
 ---
 
