@@ -115,6 +115,8 @@ superpowers (brainstorming → writing-plans → TDD…)
 3. Decision gate: le scelte strategiche ti arrivano una alla volta, come domande a opzioni con pro e contro. Scegli tu.
 4. Brief finale: lo approvi esplicitamente.
 
+**In qualsiasi momento puoi chiedere una direzione** — a parole ("tu cosa faresti?", "consigliami tu") o con **`/advisor`**. L'agente propone la sua lettura ancorata alle evidenze raccolte (con l'argomento contro incluso), ma la scelta resta tua al decision gate; se non ci sono ancora dati te lo dice, invece di inventare un parere.
+
 **Dopo l'approvazione (handoff):** la skill ti consegna un prompt pronto e ti dice cosa farne — letteralmente questo:
 1. apri una **nuova sessione nella stessa cartella di progetto** (nuova chat di Claude Code, stessa directory);
 2. incolla il prompt (dice: leggi brief e decision log, avvia il design rispettando il contratto);
