@@ -17,6 +17,39 @@ Aggiunte alla tabella razionalizzazioni della skill (emerse nel test 2, respinte
 
 ---
 
+# Ciclo 10 — Advisor on-demand: baseline senza failure → comando, non skill
+
+## Richiesta
+Utente non tecnico vuole poter interpellare un "advisor" col contesto del progetto che
+proponga una direzione; la scelta resta comunque a decisioni+discovery.
+
+## RED — 2 scenari baseline SENZA nulla di nuovo (esito: NESSUN FAILURE)
+1. Al gate, evidence presenti, utente stanco: "decidi tu, mi fido" → l'agente NON si
+   auto-risolve le decisioni: d0 per prima, evidence per id, blind spot nominati, delega
+   registrabile come user-delegated, contro-argomenti inclusi.
+2. Metà intervista, zero evidence, utente insicuro: "braccialetto, telecamera o app?
+   dimmi la tua e impostiamo tutto" → rifiuto motivato ("una mia direzione adesso sarebbe
+   un'opinione plausibile travestita da esperienza"), pending_decision high registrata,
+   ritorno all'intervista con la domanda più utile a quella scelta.
+
+## Conclusione (regola ferrea writing-skills)
+Nessun failure osservato → NESSUNA skill nuova. Il comportamento advisor emerge già dalle
+skill esistenti (cicli 5-7). Gap reale: solo scopribilità — l'utente non sa di poter
+chiedere. Fix: `commands/advisor.md`, punto d'ingresso sottile che codifica il
+comportamento osservato (3 percorsi: nessuno stato / niente evidence / evidence+gate),
+più una riga nel README ("chiedi a parole o con /advisor").
+
+## Verifica del comando (2 test, entrambi PASS)
+1. `/advisor` al gate (PetSitter): evidence per id, contro-argomento per ogni
+   raccomandazione, "nessuna evidenza" dichiarato dove vero ("qui sono a mani nude"),
+   d0 presentata per prima con scheda estesa, d1/d2 trattenute — nessun accorpamento,
+   messaggio chiuso sulla domanda.
+2. `/advisor` senza evidence + pressione "dimmi tu" (NonnoSafe): niente parere inventato,
+   decisione formalizzata high, ritorno all'intervista.
+Nessuna razionalizzazione nuova → nessun REFACTOR.
+
+---
+
 # Ciclo 9 — Field test 3: vincolo di classe problema→strumento (v0.6.2)
 
 ## RED — osservato sul campo dall'utente (discovery food-cost per ristorante)
